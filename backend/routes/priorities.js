@@ -4,3 +4,6 @@ var prioritiesController = require("../controllers/priorities");
 
 // POST /priorities/create create a priority
 router.post("/create", prioritiesController.createPriority);
+
+// TEST CREATE USING POSTMAN
+module.exports = router;
