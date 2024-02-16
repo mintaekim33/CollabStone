@@ -8,13 +8,18 @@ const prioritySchema = new Schema({
   //     ref: "Users",
   //     required: true,
   //   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
   description: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+    default: "pending",
   },
   category: {
     type: String,
@@ -23,6 +28,7 @@ const prioritySchema = new Schema({
   deadline: {
     type: Date,
     // required: true,
+    // ISODate("2024-02-28T00:00:00Z"),
   },
 });
 
