@@ -1,23 +1,28 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import CreatePriorityForm from "./components/CreatePriorityForm";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import AddPriority from "./components/AddPriority";
+import AddExpense from "./components/AddExpense";
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
 
   return (
     <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch vertically centered modal
-      </Button>
-      <AddPriority show={modalShow} onHide={() => setModalShow(false)} />
+      <div className="flex justify-center align-center bg-red-300">
+        <Button
+          className=""
+          variant="primary"
+          onClick={() => setModalShow(true)}
+        >
+          Add an expense
+        </Button>
+      </div>
+      <AddExpense show={modalShow} onHide={() => setModalShow(false)} />
       <div>
-        <Routes>
+        {/* <Routes>
           <Route path="/add" element={<CreatePriorityForm />} />
-        </Routes>
+        </Routes> */}
       </div>
     </>
   );

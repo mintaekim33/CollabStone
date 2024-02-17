@@ -1,6 +1,6 @@
-const BASE_URL = "http://localhost:3000/priorities";
+const BASE_URL = "http://localhost:3000/expenses";
 
-export async function createPriority(priorityData: any) {
+export async function createExpense(expenseData: any) {
     const createURL = BASE_URL + '/create';
 
     try {
@@ -9,7 +9,7 @@ export async function createPriority(priorityData: any) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(priorityData)
+            body: JSON.stringify(expenseData)
         })
         if (res.ok) {
             return await res.json();
@@ -18,7 +18,7 @@ export async function createPriority(priorityData: any) {
             throw new Error(errorData);
           }
     } catch (error) {
-        console.error("Error creating priority: ", error);
+        console.error("Error creating expense: ", error);
         throw error;
     }
 }

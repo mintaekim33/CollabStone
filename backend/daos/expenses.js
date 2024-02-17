@@ -1,35 +1,30 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const prioritySchema = new Schema({
+const expenseSchema = new Schema({
   // referencing user model
   //   userId: {
   //     type: mongoose.Schema.Types.ObjectId,
   //     ref: "Users",
   //     required: true,
   //   },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-    default: "pending",
-  },
   category: {
     type: String,
     required: true,
+    default: "work",
   },
-  deadline: {
-    type: Date,
-    // required: true,
-    // ISODate("2024-02-28T00:00:00Z"),
+  paymentMethod: {
+    type: String,
+    required: true,
+    default: "Cash",
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
+  note: {
+    type: String,
   },
 });
 
-module.exports = mongoose.model("Priorities", prioritySchema);
+module.exports = mongoose.model("Expenses", expenseSchema);

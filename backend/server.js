@@ -10,7 +10,7 @@ require("./client/mongo");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var prioritiesRouter = require("./routes/priorities");
+var expensesRouter = require("./routes/expenses");
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/priorities", prioritiesRouter);
+app.use("/expenses", expensesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

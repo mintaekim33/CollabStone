@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
-var prioritiesController = require("../controllers/priorities");
+var expensesController = require("../controllers/expenses");
 
 // POST /priorities/create create a priority
-router.post("/create", prioritiesController.createPriority);
+router.post("/create", expensesController.createExpense);
 
 // TEST CREATE USING POSTMAN
 module.exports = router;
