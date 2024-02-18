@@ -5,6 +5,7 @@ import { submitExpense } from "../service/expenses";
 
 // define structure for FormData type
 interface FormData {
+  date?: string;
   category?: string;
   paymentMethod?: string;
   amount?: number;
@@ -14,7 +15,14 @@ interface FormData {
 function AddExpense(props: any) {
   const { events, setEvents, ...rest } = props;
 
-  const [formData, setFormData] = useState<FormData>({});
+  // const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
+  // const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
+
+  const [formData, setFormData] = useState<FormData>({
+    // date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
+  });
+  // console.log("FOrm data, ", formData.date);
+  // console.log("FOrmatted date, ", formattedDate);
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -37,8 +45,8 @@ function AddExpense(props: any) {
     const fullCalendarApi = rest.calendar.current.getApi();
     // console.log("full calendar", fullCalendarApi);
     const expense = {
-      title: "New Expense",
-      start: "2024-02-07", // Set the start time of the event (current time)
+      title: formData.amount,
+      start: formData.date, // Set the start time of the event
       allDay: true, // Set to true if the event lasts all day
     };
     fullCalendarApi.addEvent(expense); // Add the event to the calendar
@@ -70,6 +78,22 @@ function AddExpense(props: any) {
           className="flex flex-col w-full max-w-sm mx-auto space-y-4 p-4 bg-white shadow-md rounded-md"
           onSubmit={handleSubmit}
         >
+          <label className="text-gray-700">Date</label>
+          {/* use calendar picker */}
+          <input
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            type="date"
+            value={formData.date || ""}
+            placeholder="Today"
+            required
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                date: e.target.value,
+              });
+            }}
+          />
+
           <label className="text-gray-700">Category</label>
           {/* use select options */}
           <select

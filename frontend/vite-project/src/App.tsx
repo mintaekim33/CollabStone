@@ -36,6 +36,9 @@ function App() {
     if (storedEvents) {
       setEvents(JSON.parse(storedEvents));
     }
+    // console.log("NOW - ISO: ", new Date().toISOString());
+    // console.log("NOW - localstring: ", new Date().toLocaleString());
+    // console.log("NOW - localedatestring: ", new Date().toLocaleDateString());
   }, []);
 
   // // Save events to localStorage whenever the events state changes
