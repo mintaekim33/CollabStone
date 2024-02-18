@@ -2,6 +2,7 @@ const modelExpenses = require("../models/expenses");
 
 module.exports = {
   createExpense,
+  getExpenses,
 };
 
 async function createExpense(req, res) {
@@ -16,6 +17,15 @@ async function createExpense(req, res) {
 
     const expense = await modelExpenses.createExpense(expenseData);
     res.status(201).json(expense); // Return the created expense
+  } catch (err) {
+    res.status(500).json({ errorMsg: err.message });
+  }
+}
+
+async function getExpenses(req, res) {
+  try {
+    const data = await modelExpenses.getExpenses();
+    res.status(201).json(data);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }

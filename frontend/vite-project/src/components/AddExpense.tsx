@@ -12,11 +12,12 @@ interface FormData {
 }
 
 function AddExpense(props: any) {
+  const { events, setEvents, ...rest } = props;
+
   const [formData, setFormData] = useState<FormData>({});
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
-    console.log("FORM: ", formData);
 
     try {
       const response = await submitExpense(formData);
@@ -25,18 +26,36 @@ function AddExpense(props: any) {
       console.log("Error submitting", e);
     }
     // close modal
-    props.onHide();
+    rest.onHide();
     // clear amount
     setFormData({
       // ...formData,
       amount: 0,
     });
-    console.log("FORM DATA: ", formData);
+
+    // Add expense record
+    const fullCalendarApi = rest.calendar.current.getApi();
+    // console.log("full calendar", fullCalendarApi);
+    const expense = {
+      title: "New Expense",
+      start: "2024-02-07", // Set the start time of the event (current time)
+      allDay: true, // Set to true if the event lasts all day
+    };
+    fullCalendarApi.addEvent(expense); // Add the event to the calendar
+
+    // Update events state using the callback version of setEvents
+    setEvents((prevEvents: any) => {
+      const updatedEvents = [...prevEvents, expense];
+      // Save updated events to localStorage
+      localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
+      console.log("Updated events : ", updatedEvents);
+      return updatedEvents;
+    });
   }
 
   return (
     <Modal
-      {...props}
+      {...rest}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
