@@ -8,14 +8,20 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import { fetchExpensesData } from "./service/expenses";
+import ExpenseItem from "./components/ExpenseItem";
 
-interface expense {
+interface Expense {
   _id?: string;
   amount?: number;
   category?: string;
   note?: string;
   paymentMethod?: string;
+  date?: string;
 }
+
+// interface ExpenseProps {
+//   expense: Expense;
+// }
 
 interface CalendarEvent {
   title: string;
@@ -25,7 +31,7 @@ interface CalendarEvent {
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
-  const [expenses, setExpenses] = useState<expense[]>([]); // backend data
+  const [expenses, setExpenses] = useState<Expense[]>([]); // backend data
   const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
 
   const fullCalendarRef = useRef(null);
@@ -48,14 +54,14 @@ function App() {
 
   /// for rendering expenses data from DB
   /// if the expense is edited/deleted, need API call and update events state together
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const expenses = await fetchExpensesData();
-  //     setExpenses(expenses);
-  //   };
-  //   fetchData();
-  //   // console.log("EXPENSES: ", expenses);
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const expenses = await fetchExpensesData();
+      setExpenses(expenses);
+    };
+    fetchData();
+    console.log("EXPENSES: ", expenses);
+  }, []);
 
   // function handleEvents() {
   //   setEvents([...events, expense]);
@@ -63,10 +69,6 @@ function App() {
 
   return (
     <>
-      {/* {expenses &&
-        expenses.map((expense) => {
-          return <div key={expense._id}>{expense.amount}</div>;
-        })} */}
       <div className="flex justify-center align-center bg-red-300">
         <Button
           className=""
@@ -83,6 +85,8 @@ function App() {
         calendar={fullCalendarRef} // pass ref prop to form component
         events={events}
         setEvents={setEvents}
+        expenses={expenses}
+        setExpenses={setExpenses}
       />
       <FullCalendar
         ref={fullCalendarRef} // set ref
@@ -99,6 +103,18 @@ function App() {
         // ]}
         events={events}
       />
+
+      {/* list of expenses */}
+      <div className="mx-20 my-10 p-10 bg-sky-100 flex flex-col items-center gap-3">
+        <p>List of expenses</p>
+        {expenses &&
+          expenses.map((expense) => {
+            return <ExpenseItem key={expense._id} expense={expense} />;
+          })}
+        {/* // expenses.map((expense, idx) => {
+          //   return <ExpenseItem key={idx} expense={expense} />;
+          // })} */}
+      </div>
     </>
   );
 }
