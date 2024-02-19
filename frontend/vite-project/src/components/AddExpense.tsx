@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { submitExpense } from "../service/expenses";
 
@@ -10,15 +9,6 @@ interface FormData {
   paymentMethod?: string;
   amount?: number;
   note?: string;
-}
-
-interface Expense {
-  _id?: string;
-  amount?: number;
-  category?: string;
-  note?: string;
-  paymentMethod?: string;
-  date?: string;
 }
 
 function AddExpense(props: any) {
@@ -58,7 +48,6 @@ function AddExpense(props: any) {
 
     // Add expense record
     const fullCalendarApi = rest.calendar.current.getApi();
-    // console.log("full calendar", fullCalendarApi);
     const expense = {
       title: formData.amount,
       start: formData.date, // Set the start time of the event
@@ -77,16 +66,6 @@ function AddExpense(props: any) {
 
     console.log("FORM DATA: ", formData);
     console.log("EXPENSE DATA: ", expenses);
-
-    // const newExpense: Expense = {
-    //   amount: formData.amount,
-    //   category: formData.category,
-    //   date: formData.date,
-    //   paymentMethod: formData.paymentMethod,
-    // };
-
-    // // optimistic rendering of added expense item
-    // setExpenses([...expenses, newExpense]);
   }
 
   return (
@@ -107,12 +86,10 @@ function AddExpense(props: any) {
           onSubmit={handleSubmit}
         >
           <label className="text-gray-700">Date</label>
-          {/* use calendar picker */}
           <input
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             type="date"
             value={formData.date} // controlled by defining the state right from the start
-            // value={formData.date || ""}
             placeholder="Today"
             required
             onChange={(e) => {
@@ -124,7 +101,6 @@ function AddExpense(props: any) {
           />
 
           <label className="text-gray-700">Category</label>
-          {/* use select options */}
           <select
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={formData.category || ""}
@@ -189,7 +165,6 @@ function AddExpense(props: any) {
               });
             }}
           />
-
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             type="submit"

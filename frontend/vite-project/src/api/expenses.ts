@@ -33,10 +33,10 @@ export async function getExpenses() {
             },
         })
         if (res.ok) {
-            console.log("res - successfully called get endpoint : ", res)
+            // console.log("res - successfully called get endpoint : ", res)
             return await res.json();
         } else {
-              console.log("res - failed to call get endpoint : ", res)
+            //   console.log("res - failed to call get endpoint : ", res)
             const errorData = await res.text();
             throw new Error(errorData);
           }
