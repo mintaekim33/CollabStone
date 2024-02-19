@@ -5,6 +5,7 @@ import { submitExpense } from "../service/expenses";
 
 // define structure for FormData type
 interface FormData {
+  date?: string;
   category?: string;
   paymentMethod?: string;
   amount?: number;
@@ -12,11 +13,20 @@ interface FormData {
 }
 
 function AddExpense(props: any) {
-  const [formData, setFormData] = useState<FormData>({});
+  const { events, setEvents, ...rest } = props;
+
+  const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
+  const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
+
+  const [formData, setFormData] = useState<FormData>({
+    // date: new Date().toISOString().split("T")[0], // Get today's date in 'YYYY-MM-DD' format
+    date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
+  });
+  // console.log("FOrm data, ", formData.date);
+  // console.log("FOrmatted date, ", formattedDate);
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
-    console.log("FORM: ", formData);
 
     try {
       const response = await submitExpense(formData);
@@ -25,18 +35,36 @@ function AddExpense(props: any) {
       console.log("Error submitting", e);
     }
     // close modal
-    props.onHide();
+    rest.onHide();
     // clear amount
     setFormData({
-      // ...formData,
+      ...formData,
       amount: 0,
     });
-    console.log("FORM DATA: ", formData);
+
+    // Add expense record
+    const fullCalendarApi = rest.calendar.current.getApi();
+    // console.log("full calendar", fullCalendarApi);
+    const expense = {
+      title: formData.amount,
+      start: formData.date, // Set the start time of the event
+      allDay: true, // Set to true if the event lasts all day
+    };
+    fullCalendarApi.addEvent(expense); // Add the event to the calendar
+
+    // Update events state using the callback version of setEvents
+    setEvents((prevEvents: any) => {
+      const updatedEvents = [...prevEvents, expense];
+      // Save updated events to localStorage
+      localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
+      console.log("Updated events : ", updatedEvents);
+      return updatedEvents;
+    });
   }
 
   return (
     <Modal
-      {...props}
+      {...rest}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -51,6 +79,23 @@ function AddExpense(props: any) {
           className="flex flex-col w-full max-w-sm mx-auto space-y-4 p-4 bg-white shadow-md rounded-md"
           onSubmit={handleSubmit}
         >
+          <label className="text-gray-700">Date</label>
+          {/* use calendar picker */}
+          <input
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            type="date"
+            value={formData.date} // controlled by defining the state right from the start
+            // value={formData.date || ""}
+            placeholder="Today"
+            required
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                date: e.target.value,
+              });
+            }}
+          />
+
           <label className="text-gray-700">Category</label>
           {/* use select options */}
           <select
