@@ -12,8 +12,17 @@ interface FormData {
   note?: string;
 }
 
+interface Expense {
+  _id?: string;
+  amount?: number;
+  category?: string;
+  note?: string;
+  paymentMethod?: string;
+  date?: string;
+}
+
 function AddExpense(props: any) {
-  const { events, setEvents, ...rest } = props;
+  const { expenses, setExpenses, events, setEvents, ...rest } = props;
 
   const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
   const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
@@ -30,6 +39,11 @@ function AddExpense(props: any) {
 
     try {
       const response = await submitExpense(formData);
+      // Upon successful submission, update local state with the newly created expense
+      // const newExpense = response; // Assuming the response contains the newly created expense object
+      // console.log("NEW expense: ", newExpense);
+      setExpenses((prevExpenses: any) => [...prevExpenses, response]);
+
       console.log("form response: ", response);
     } catch (e) {
       console.log("Error submitting", e);
@@ -60,6 +74,19 @@ function AddExpense(props: any) {
       console.log("Updated events : ", updatedEvents);
       return updatedEvents;
     });
+
+    console.log("FORM DATA: ", formData);
+    console.log("EXPENSE DATA: ", expenses);
+
+    // const newExpense: Expense = {
+    //   amount: formData.amount,
+    //   category: formData.category,
+    //   date: formData.date,
+    //   paymentMethod: formData.paymentMethod,
+    // };
+
+    // // optimistic rendering of added expense item
+    // setExpenses([...expenses, newExpense]);
   }
 
   return (
