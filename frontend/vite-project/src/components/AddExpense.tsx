@@ -15,11 +15,12 @@ interface FormData {
 function AddExpense(props: any) {
   const { events, setEvents, ...rest } = props;
 
-  // const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
-  // const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
+  const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
+  const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
 
   const [formData, setFormData] = useState<FormData>({
-    // date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
+    // date: new Date().toISOString().split("T")[0], // Get today's date in 'YYYY-MM-DD' format
+    date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
   });
   // console.log("FOrm data, ", formData.date);
   // console.log("FOrmatted date, ", formattedDate);
@@ -37,7 +38,7 @@ function AddExpense(props: any) {
     rest.onHide();
     // clear amount
     setFormData({
-      // ...formData,
+      ...formData,
       amount: 0,
     });
 
@@ -83,7 +84,8 @@ function AddExpense(props: any) {
           <input
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             type="date"
-            value={formData.date || ""}
+            value={formData.date} // controlled by defining the state right from the start
+            // value={formData.date || ""}
             placeholder="Today"
             required
             onChange={(e) => {
