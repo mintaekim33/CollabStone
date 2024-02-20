@@ -1,19 +1,29 @@
+import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
+interface FormData {
+  date?: string;
+  category?: string;
+  paymentMethod?: string;
+  amount?: number;
+  note?: string;
+}
+
 function EditExpense(props: any) {
-  const { formData, setFormData, selectedExpense, ...rest } = props;
+  const { selectedExpense, ...rest } = props;
+  const [editedFormData, setEditedFormData] = useState<FormData>({});
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    console.log("SELECTED Expense: ", selectedExpense);
+    // console.log("SELECTED Expense: ", selectedExpense);
 
     // try {
-    //   const response = await submitExpense(formData);
+    // //   const response = await updateExpense(editedFormData);
     //   // Upon successful submission, update local state with the newly created expense
     //   // const newExpense = response; // Assuming the response contains the newly created expense object
     //   // console.log("NEW expense: ", newExpense);
-    //   setExpenses((prevExpenses: any) => [...prevExpenses, response]);
+    //   //   setExpenses((prevExpenses: any) => [...prevExpenses, response]);
 
     //   console.log("form response: ", response);
     // } catch (e) {
@@ -69,27 +79,28 @@ function EditExpense(props: any) {
               <input
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
                 type="date"
-                value={selectedExpense.date.split("T")[0]} // controlled by defining the state right from the start
-                placeholder="Today"
+                value={
+                  editedFormData.date || selectedExpense.date.split("T")[0]
+                } // controlled by defining the state right from the start
                 required
                 onChange={(e) => {
-                  setFormData({
-                    ...formData,
+                  setEditedFormData({
+                    ...editedFormData,
                     date: e.target.value,
                   });
+                  console.log("edit form data: ", editedFormData);
                 }}
               />
 
               <label className="text-gray-700">Category</label>
               <select
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-                value={selectedExpense.category}
+                value={editedFormData.category || selectedExpense.category}
                 onChange={(e) => {
-                  setFormData({
-                    ...formData,
+                  setEditedFormData({
+                    ...editedFormData,
                     category: e.target.value,
                   });
-                  console.log("category: ", formData.category);
                 }}
               >
                 <option>work</option>
@@ -100,10 +111,12 @@ function EditExpense(props: any) {
               <label className="text-gray-700">Payment Method</label>
               <select
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-                value={selectedExpense.paymentMethod}
+                value={
+                  editedFormData.paymentMethod || selectedExpense.paymentMethod
+                }
                 onChange={(e) => {
-                  setFormData({
-                    ...formData,
+                  setEditedFormData({
+                    ...editedFormData,
                     paymentMethod: e.target.value,
                   });
                 }}
@@ -118,7 +131,7 @@ function EditExpense(props: any) {
               <input
                 type="number"
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-                value={selectedExpense.amount}
+                value={editedFormData.amount || selectedExpense.amount}
                 required
                 autoFocus
                 min="0"
@@ -126,8 +139,8 @@ function EditExpense(props: any) {
                 onChange={(e) => {
                   // const inputValue = e.target.value;
                   // if (/^\d*\.?\d*$/.test(inputValue)) {
-                  setFormData({
-                    ...formData,
+                  setEditedFormData({
+                    ...editedFormData,
                     amount: parseFloat(parseFloat(e.target.value).toFixed(2)), // toFixed returns a string
                   });
 
@@ -138,10 +151,10 @@ function EditExpense(props: any) {
               <label className="text-gray-700">Note</label>
               <input
                 className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-                value={selectedExpense.note}
+                value={editedFormData.note || selectedExpense.note}
                 onChange={(e) => {
-                  setFormData({
-                    ...formData,
+                  setEditedFormData({
+                    ...editedFormData,
                     note: e.target.value,
                   });
                 }}
@@ -155,9 +168,6 @@ function EditExpense(props: any) {
               </button>
             </form>
           </Modal.Body>
-          {/* <Modal.Footer>
-      <Button onClick={props.onHide}>Close</Button>
-    </Modal.Footer> */}
         </Modal>
       )}
     </>

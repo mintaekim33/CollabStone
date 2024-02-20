@@ -114,8 +114,6 @@ function App() {
       <EditExpense
         show={editModalShow}
         onHide={() => setEditModalShow(false)}
-        formData={formData}
-        setFormData={setFormData}
         selectedExpense={selectedExpense}
       />
 
