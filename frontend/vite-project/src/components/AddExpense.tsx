@@ -3,17 +3,27 @@ import Modal from "react-bootstrap/Modal";
 import { submitExpense } from "../service/expenses";
 
 // define structure for FormData type
-interface FormData {
-  date?: string;
-  category?: string;
-  paymentMethod?: string;
-  amount?: number;
-  note?: string;
-}
+// interface FormData {
+//   date?: string;
+//   category?: string;
+//   paymentMethod?: string;
+//   amount?: number;
+//   note?: string;
+// }
 
 function AddExpense(props: any) {
-  const { expenses, setExpenses, events, setEvents, ...rest } = props;
+  const {
+    formData,
+    setFormData,
+    expenses,
+    setExpenses,
+    events,
+    setEvents,
+    ...rest
+  } = props;
 
+  /**moved to app
+   * 
   const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
   const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
 
@@ -21,11 +31,16 @@ function AddExpense(props: any) {
     // date: new Date().toISOString().split("T")[0], // Get today's date in 'YYYY-MM-DD' format
     date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
   });
+   * 
+   * 
+   *  */
+
   // console.log("FOrm data, ", formData.date);
   // console.log("FOrmatted date, ", formattedDate);
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
+    console.log("ADD BUTTON");
 
     try {
       const response = await submitExpense(formData);
@@ -140,6 +155,7 @@ function AddExpense(props: any) {
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={formData.amount || ""}
             required
+            autoFocus
             min="0"
             step=".01"
             onChange={(e) => {
