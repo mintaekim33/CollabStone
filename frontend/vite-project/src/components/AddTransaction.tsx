@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { submitExpense } from "../service/expenses";
+import { submitTransaction } from "../service/transactions";
 
 // define structure for FormData type
 // interface FormData {
@@ -11,12 +11,12 @@ import { submitExpense } from "../service/expenses";
 //   note?: string;
 // }
 
-function AddExpense(props: any) {
+function AddTransaction(props: any) {
   const {
     formData,
     setFormData,
-    expenses,
-    setExpenses,
+    transactions,
+    setTransactions,
     events,
     setEvents,
     ...rest
@@ -43,11 +43,14 @@ function AddExpense(props: any) {
     console.log("ADD BUTTON");
 
     try {
-      const response = await submitExpense(formData);
-      // Upon successful submission, update local state with the newly created expense
-      // const newExpense = response; // Assuming the response contains the newly created expense object
-      // console.log("NEW expense: ", newExpense);
-      setExpenses((prevExpenses: any) => [...prevExpenses, response]);
+      const response = await submitTransaction(formData);
+      // Upon successful submission, update local state with the newly created transaction
+      // const newTransaction = response; // Assuming the response contains the newly created transaction object
+      // console.log("NEW transaction: ", newTransaction);
+      setTransactions((prevTransactions: any) => [
+        ...prevTransactions,
+        response,
+      ]);
 
       console.log("form response: ", response);
     } catch (e) {
@@ -61,18 +64,18 @@ function AddExpense(props: any) {
       amount: 0,
     });
 
-    // Add expense record
+    // Add transaction record
     const fullCalendarApi = rest.calendar.current.getApi();
-    const expense = {
+    const transaction = {
       title: formData.amount,
       start: formData.date, // Set the start time of the event
       allDay: true, // Set to true if the event lasts all day
     };
-    fullCalendarApi.addEvent(expense); // Add the event to the calendar
+    fullCalendarApi.addEvent(transaction); // Add the event to the calendar
 
     // Update events state using the callback version of setEvents
     setEvents((prevEvents: any) => {
-      const updatedEvents = [...prevEvents, expense];
+      const updatedEvents = [...prevEvents, transaction];
       // Save updated events to localStorage
       localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
       console.log("Updated events : ", updatedEvents);
@@ -80,7 +83,7 @@ function AddExpense(props: any) {
     });
 
     console.log("FORM DATA: ", formData);
-    console.log("EXPENSE DATA: ", expenses);
+    console.log("transaction DATA: ", transaction);
   }
 
   return (
@@ -92,7 +95,7 @@ function AddExpense(props: any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add an expense
+          Add a transaction
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -197,4 +200,4 @@ function AddExpense(props: any) {
   );
 }
 
-export default AddExpense;
+export default AddTransaction;
