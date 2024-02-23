@@ -21,15 +21,32 @@ function EditTransaction(props: any) {
     setEditedFormData,
     transaction,
     selectedTransaction,
+    selectedTransactionId,
     transactionData,
     ...rest
   } = props;
   const { transactions, setTransactions } = useContext(DataContext);
   //   const [editedFormData, setEditedFormData] = useState<FormData>({});
 
-  //   console.log("edit transactions; ", transactions);
+  // console.log("edit transactions; ", transactions);
+
+  // const selectedTransaction = transactions.find(
+  //   (transaction: { _id: string }) => transaction._id === selectedTransactionId
+  // );
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const item = await fetchTransactionData(transaction._id);
+  //     console.log(item);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // console.log("formformform: ", editedFormData);
+
+  // console.log("selected tran: ", selectedTransaction);
+
   //   console.log("edit transaction; ", transaction);
-  console.log("form data: ", editedFormData);
 
   //   setEditedFormData({
   //     date: transactionData.date,
@@ -42,10 +59,11 @@ function EditTransaction(props: any) {
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
 
-    console.log("SELECTED transaction: ", selectedTransaction); // send the transactionId using this
+    // console.log("SELECTED transaction: ", selectedTransaction); // send the transactionId using this
     // console.log("form data: ", editedFormData); // with the data to update
-
-    const transactionId = selectedTransaction._id;
+    console.log("formformform: ", editedFormData);
+    // const transactionId = selectedTransaction._id;
+    const transactionId = transaction._id;
 
     try {
       const response = await updateTransaction(editedFormData, transactionId);
@@ -67,35 +85,10 @@ function EditTransaction(props: any) {
     }
     // // close modal
     rest.onHide();
-
-    // // clear amount
-    // setFormData({
-    //   ...formData,
-    //   amount: 0,
-    // });
-
-    // Edit transaction record
-    // const fullCalendarApi = rest.calendar.current.getApi();
-    // const transaction = {
-    //   title: formData.amount,
-    //   start: formData.date, // Set the start time of the event
-    //   allDay: true, // Set to true if the event lasts all day
-    // };
-    // fullCalendarApi.updateEvent(transaction); // Add the event to the calendar
-
-    // Update events state using the callback version of setEvents
-    // setEvents((prevEvents: any) => {
-    //   const updatedEvents = [...prevEvents, transaction];
-    //   // Save updated events to localStorage
-    //   localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
-    //   console.log("Updated events : ", updatedEvents);
-    //   return updatedEvents;
-    // });
   }
 
   return (
     <>
-      {/* {editedFormData && ( */}
       <Modal
         {...rest}
         size="lg"
@@ -116,10 +109,9 @@ function EditTransaction(props: any) {
             <input
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
               type="date"
-              value={
-                editedFormData.date || ""
-                //   || selectedTransaction.date.split("T")[0]
-              } // controlled by defining the state right from the start
+              // value={tem.date || ""} // controlled by defining the state right from the start
+              value={"data"} // controlled by defining the state right from the start
+              // value={editedFormData.date || ""} // controlled by defining the state right from the start
               required
               onChange={(e) => {
                 setEditedFormData({
@@ -133,8 +125,8 @@ function EditTransaction(props: any) {
             <label className="text-gray-700">Category</label>
             <select
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-              value={editedFormData.category || ""}
-              //  || selectedTransaction.category}
+              value={"data"}
+              // value={editedFormData.category || ""}
               onChange={(e) => {
                 setEditedFormData({
                   ...editedFormData,
@@ -150,10 +142,7 @@ function EditTransaction(props: any) {
             <label className="text-gray-700">Payment Method</label>
             <select
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-              value={
-                editedFormData.paymentMethod || ""
-                //   || selectedTransaction.paymentMethod
-              }
+              value={editedFormData.paymentMethod || ""}
               onChange={(e) => {
                 setEditedFormData({
                   ...editedFormData,
@@ -171,7 +160,6 @@ function EditTransaction(props: any) {
               type="number"
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
               value={editedFormData.amount || ""}
-              // || selectedTransaction.amount}
               required
               autoFocus
               min="0"
@@ -191,7 +179,6 @@ function EditTransaction(props: any) {
             <input
               className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
               value={editedFormData.note || ""}
-              // || selectedTransaction.note}
               onChange={(e) => {
                 setEditedFormData({
                   ...editedFormData,
@@ -203,13 +190,13 @@ function EditTransaction(props: any) {
               className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
               type="submit"
               // onClick={props.onHide}
+              onClick={() => console.log("EDIT FORM DATA: ", editedFormData)}
             >
               Submit
             </button>
           </form>
         </Modal.Body>
       </Modal>
-      {/* )} */}
     </>
   );
 }

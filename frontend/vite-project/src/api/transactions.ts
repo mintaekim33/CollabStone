@@ -57,7 +57,7 @@ export async function getTransaction(id: string) {
             },
         })
         if (res.ok) {
-            console.log("data read successfully! ", res)
+            // console.log("data read successfully! ", res)
             return await res.json();
         } else {
             console.error("failed to read data ", res)

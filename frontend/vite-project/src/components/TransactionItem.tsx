@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import EditTransaction from "./EditTransaction";
 import { fetchTransactionData } from "../service/transactions";
+import UpdateTransaction from "./UpdateTransaction";
+import { Link } from "react-router-dom";
 
 interface Transaction {
   _id?: string;
@@ -37,56 +39,52 @@ function TransactionItem(props: any) {
   } = props;
   //   const [editModalShow, setEditModalShow] = useState(false);
   const [editedFormData, setEditedFormData] = useState<FormData>({});
-  const [transactionData, setTransactionData] = useState();
+  const [transactionData, setTransactionData] = useState({});
+  // const [updateTransaction, setUpdateTransaction] = useState(false);
 
-  async function fetchData(id: string) {
-    const data = await fetchTransactionData(id); // get selected transaction and then fetch data
-    // setTransactionData(data);
-    // if (!data.ok) {
-    //   throw new Error("Failed to fetch data");
-    // }
-    console.log("FETCHED TRANSACTION DATA: ", data);
-    setEditedFormData({
-      date: data.date,
-      category: data.category,
-      paymentMethod: data.paymentMethod,
-      amount: data.amount,
-      note: data.note,
-    });
-  }
-  //     console.log("FORM TO EDIT: ", editedFormData);
-  //   console.log("transactionData", transactionData);
-  //   console.log("transaction?? : ", transaction);
+  // async function fetchData(id: string) {
+  //   const data = await fetchTransactionData(id); // get selected transaction and then fetch data
+  //   setEditedFormData({
+  //     date: data.date,
+  //     category: data.category,
+  //     paymentMethod: data.paymentMethod,
+  //     amount: data.amount,
+  //     note: data.note,
+  //   });
+  // }
 
-  //   console.log("transaction item's transaction: ", transaction);
+  console.log("trand: ", transaction);
+
   return (
     <>
-      {/* {transaction && ( */}
-      <div className="flex gap-5">
+      <div className="flex gap-5 bg-red-300">
         <div>{transaction.date?.split("T")[0]}</div>
         <div>${transaction.amount}</div>
         <div>{transaction.category}</div>
         <div>{transaction.paymentMethod}</div>
-        <button
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-          //   variant="primary"
-          // onClick={() => console.log("transactions: ", transactions)}
-          // onClick={() => setModalShow(true)}
-          onClick={() => {
-            // console.log("edit MODALSHOW: ", editModalShow);
-            // console.log("Form Data: ", formData);
-            // get this item's id and store it to find the correct item from the transactions list
-            setSelectedTransactionId(transaction._id);
-            // console.log("SELECTED transaction: ", selectedTransaction);
-            fetchData(transaction._id);
-            // console.log("transactionData", transactionData);
-            // console.log("FORM TO EDIT: ", editedFormData);
-            setEditModalShow(true);
-          }}
-        >
-          Edit an transaction
-        </button>
-        <EditTransaction
+        <Link to={"/transaction/" + transaction._id}>
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            //   variant="primary"
+            onMouseOver={() => {
+              // setSelectedTransactionId(transaction._id);
+              // fetchData(transaction._id);
+              // console.log(editedFormData);
+            }}
+            onClick={() => {
+              // get this item's id and store it to find the correct item from the transactions list
+              // console.log(selectedTransaction);
+              // console.log("transaction._id", transaction._id);
+              // setSelectedTransactionId(transaction._id);
+              //          fetchData(transaction._id);
+              // setEditModalShow(true);
+              // setUpdateTransaction(true);
+            }}
+          >
+            Edit a transaction
+          </button>
+        </Link>
+        {/* <EditTransaction
           show={editModalShow}
           onHide={() => setEditModalShow(false)}
           selectedTransaction={selectedTransaction}
@@ -94,9 +92,17 @@ function TransactionItem(props: any) {
           editedFormData={editedFormData}
           setEditedFormData={setEditedFormData}
           transactionData={transactionData}
-        />
+        // /> */}
+        {/* {updateTransaction && ( */}
+        {/* <UpdateTransaction
+          selectedTransaction={selectedTransaction}
+          transaction={transaction}
+          editedFormData={editedFormData}
+          setEditedFormData={setEditedFormData}
+          transactionData={transactionData}
+        /> */}
+        {/* // )} */}
       </div>
-      {/* )} */}
     </>
   );
 }

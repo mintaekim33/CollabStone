@@ -78,7 +78,7 @@ function AddTransaction(props: any) {
       const updatedEvents = [...prevEvents, transaction];
       // Save updated events to localStorage
       localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
-      console.log("Updated events : ", updatedEvents);
+      // console.log("Updated events : ", updatedEvents);
       return updatedEvents;
     });
 
