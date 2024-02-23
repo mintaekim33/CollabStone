@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const expenseSchema = new Schema({
+const TransactionSchema = new Schema({
   // referencing user model
   //   userId: {
   //     type: mongoose.Schema.Types.ObjectId,
@@ -10,9 +10,11 @@ const expenseSchema = new Schema({
   //   },
   date: {
     type: Date,
-    default: new Date(), // current date
+    required: true,
+    // default: new Date(), // current date
     // ISODate("2024-02-28T00:00:00Z"),
   },
+  // type - income / expense
   category: {
     type: String,
     required: true,
@@ -32,4 +34,4 @@ const expenseSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("Expenses", expenseSchema);
+module.exports = mongoose.model("Transactions", TransactionSchema);

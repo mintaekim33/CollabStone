@@ -1,48 +1,28 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { submitExpense } from "../service/expenses";
+import { submitTransaction } from "../service/transactions";
 
-// define structure for FormData type
-interface FormData {
-  date?: string;
-  category?: string;
-  paymentMethod?: string;
-  amount?: number;
-  note?: string;
-}
-
-interface Expense {
-  _id?: string;
-  amount?: number;
-  category?: string;
-  note?: string;
-  paymentMethod?: string;
-  date?: string;
-}
-
-function AddExpense(props: any) {
-  const { expenses, setExpenses, events, setEvents, ...rest } = props;
-
-  const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
-  const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
-
-  const [formData, setFormData] = useState<FormData>({
-    // date: new Date().toISOString().split("T")[0], // Get today's date in 'YYYY-MM-DD' format
-    date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
-  });
-  // console.log("FOrm data, ", formData.date);
-  // console.log("FOrmatted date, ", formattedDate);
+function AddTransaction(props: any) {
+  const {
+    formData,
+    setFormData,
+    transactions,
+    setTransactions,
+    // events,
+    // setEvents,
+    ...rest
+  } = props;
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
+    console.log("ADD BUTTON");
 
     try {
-      const response = await submitExpense(formData);
-      // Upon successful submission, update local state with the newly created expense
-      // const newExpense = response; // Assuming the response contains the newly created expense object
-      // console.log("NEW expense: ", newExpense);
-      setExpenses((prevExpenses: any) => [...prevExpenses, response]);
+      const response = await submitTransaction(formData);
+      // Upon successful submission, update local state with the newly created transaction
+      setTransactions((prevTransactions: any) => [
+        ...prevTransactions,
+        response,
+      ]);
 
       console.log("form response: ", response);
     } catch (e) {
@@ -56,37 +36,26 @@ function AddExpense(props: any) {
       amount: 0,
     });
 
-    // Add expense record
-    const fullCalendarApi = rest.calendar.current.getApi();
-    // console.log("full calendar", fullCalendarApi);
-    const expense = {
-      title: formData.amount,
-      start: formData.date, // Set the start time of the event
-      allDay: true, // Set to true if the event lasts all day
-    };
-    fullCalendarApi.addEvent(expense); // Add the event to the calendar
-
-    // Update events state using the callback version of setEvents
-    setEvents((prevEvents: any) => {
-      const updatedEvents = [...prevEvents, expense];
-      // Save updated events to localStorage
-      localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
-      console.log("Updated events : ", updatedEvents);
-      return updatedEvents;
-    });
-
-    console.log("FORM DATA: ", formData);
-    console.log("EXPENSE DATA: ", expenses);
-
-    // const newExpense: Expense = {
-    //   amount: formData.amount,
-    //   category: formData.category,
-    //   date: formData.date,
-    //   paymentMethod: formData.paymentMethod,
+    // Add transaction record
+    // const fullCalendarApi = rest.calendar.current.getApi();
+    // const transaction = {
+    //   title: formData.amount,
+    //   start: formData.date, // Set the start time of the event
+    //   allDay: true, // Set to true if the event lasts all day
     // };
+    // fullCalendarApi.addEvent(transaction); // Add the event to the calendar
 
-    // // optimistic rendering of added expense item
-    // setExpenses([...expenses, newExpense]);
+    // // Update events state using the callback version of setEvents
+    // setEvents((prevEvents: any) => {
+    //   const updatedEvents = [...prevEvents, transaction];
+    //   // Save updated events to localStorage
+    //   localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
+    //   // console.log("Updated events : ", updatedEvents);
+    //   return updatedEvents;
+    // });
+
+    // console.log("FORM DATA: ", formData);
+    // console.log("transaction DATA: ", transaction);
   }
 
   return (
@@ -98,7 +67,7 @@ function AddExpense(props: any) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Add an expense
+          Add a transaction
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -107,12 +76,10 @@ function AddExpense(props: any) {
           onSubmit={handleSubmit}
         >
           <label className="text-gray-700">Date</label>
-          {/* use calendar picker */}
           <input
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             type="date"
             value={formData.date} // controlled by defining the state right from the start
-            // value={formData.date || ""}
             placeholder="Today"
             required
             onChange={(e) => {
@@ -124,7 +91,6 @@ function AddExpense(props: any) {
           />
 
           <label className="text-gray-700">Category</label>
-          {/* use select options */}
           <select
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={formData.category || ""}
@@ -164,6 +130,7 @@ function AddExpense(props: any) {
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={formData.amount || ""}
             required
+            autoFocus
             min="0"
             step=".01"
             onChange={(e) => {
@@ -189,7 +156,6 @@ function AddExpense(props: any) {
               });
             }}
           />
-
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             type="submit"
@@ -206,4 +172,4 @@ function AddExpense(props: any) {
   );
 }
 
-export default AddExpense;
+export default AddTransaction;
