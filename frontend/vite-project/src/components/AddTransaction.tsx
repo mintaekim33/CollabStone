@@ -7,8 +7,8 @@ function AddTransaction(props: any) {
     setFormData,
     transactions,
     setTransactions,
-    events,
-    setEvents,
+    // events,
+    // setEvents,
     ...rest
   } = props;
 
@@ -37,25 +37,25 @@ function AddTransaction(props: any) {
     });
 
     // Add transaction record
-    const fullCalendarApi = rest.calendar.current.getApi();
-    const transaction = {
-      title: formData.amount,
-      start: formData.date, // Set the start time of the event
-      allDay: true, // Set to true if the event lasts all day
-    };
-    fullCalendarApi.addEvent(transaction); // Add the event to the calendar
+    // const fullCalendarApi = rest.calendar.current.getApi();
+    // const transaction = {
+    //   title: formData.amount,
+    //   start: formData.date, // Set the start time of the event
+    //   allDay: true, // Set to true if the event lasts all day
+    // };
+    // fullCalendarApi.addEvent(transaction); // Add the event to the calendar
 
-    // Update events state using the callback version of setEvents
-    setEvents((prevEvents: any) => {
-      const updatedEvents = [...prevEvents, transaction];
-      // Save updated events to localStorage
-      localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
-      // console.log("Updated events : ", updatedEvents);
-      return updatedEvents;
-    });
+    // // Update events state using the callback version of setEvents
+    // setEvents((prevEvents: any) => {
+    //   const updatedEvents = [...prevEvents, transaction];
+    //   // Save updated events to localStorage
+    //   localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
+    //   // console.log("Updated events : ", updatedEvents);
+    //   return updatedEvents;
+    // });
 
-    console.log("FORM DATA: ", formData);
-    console.log("transaction DATA: ", transaction);
+    // console.log("FORM DATA: ", formData);
+    // console.log("transaction DATA: ", transaction);
   }
 
   return (

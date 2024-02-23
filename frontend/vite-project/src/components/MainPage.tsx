@@ -29,22 +29,22 @@ export const DataContext = createContext<any>(null);
 function MainPage(props: any) {
   const { transactions, setTransactions } = props;
   const [addModalShow, setAddModalShow] = useState(false);
-  const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
+  //   const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
 
   const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
   const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
   const [formData, setFormData] = useState<FormData>({
     date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
   });
-  const fullCalendarRef = useRef(null);
+  //   const fullCalendarRef = useRef(null);
 
   // Load events from localStorage on component mount
-  useEffect(() => {
-    const storedEvents = localStorage.getItem("calendarEvents");
-    if (storedEvents) {
-      setEvents(JSON.parse(storedEvents));
-    }
-  }, []);
+  //   useEffect(() => {
+  //     const storedEvents = localStorage.getItem("calendarEvents");
+  //     if (storedEvents) {
+  //       setEvents(JSON.parse(storedEvents));
+  //     }
+  //   }, []);
 
   return (
     <>
@@ -52,16 +52,16 @@ function MainPage(props: any) {
         <AddTransaction
           show={addModalShow}
           onHide={() => setAddModalShow(false)}
-          calendar={fullCalendarRef} // pass ref prop to form component
-          events={events}
-          setEvents={setEvents}
+          //   calendar={fullCalendarRef} // pass ref prop to form component
+          //   events={events}
+          //   setEvents={setEvents}
           transactions={transactions}
           setTransactions={setTransactions}
           formData={formData}
           setFormData={setFormData}
         />
 
-        <FullCalendar
+        {/* <FullCalendar
           ref={fullCalendarRef} // set ref
           plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
           initialView="dayGridMonth"
@@ -72,7 +72,7 @@ function MainPage(props: any) {
           }}
           events={events}
           // eventDidMount={}
-        />
+        /> */}
 
         <Button
           className=""

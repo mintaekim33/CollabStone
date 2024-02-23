@@ -39,7 +39,7 @@ function UpdateTransaction(props: any) {
   useEffect(() => {
     const fetchData = async (id: string) => {
       const transaction = await fetchTransactionData(id);
-      console.log("transaction data: ", transaction);
+      //   console.log("transaction data: ", transaction);
       setTransactionToUpdate(transaction);
       setEditFormData({
         date: transaction.date,
@@ -70,12 +70,21 @@ function UpdateTransaction(props: any) {
         })
       );
 
-      console.log("form response: ", response);
+      //   console.log("form response: ", response);
     } catch (e) {
       console.log("Error submitting", e);
     }
     // go back to main page
     navigate("/");
+
+    // update the calendar events
+    //     const updatedEvents = events.map((event: { id: any; }) => {
+    //         if (event.id === updatedEvent.id) {
+    //           return { ...event, ...updatedEvent }; // Update only the modified properties
+    //         }
+    //         return event;
+    //       });
+    //       setEvents(updatedEvents);
   }
 
   return (
