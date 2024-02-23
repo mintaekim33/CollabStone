@@ -14,16 +14,13 @@ const TransactionSchema = new Schema({
     // default: new Date(), // current date
     // ISODate("2024-02-28T00:00:00Z"),
   },
-  // type - income / expense
+  type: {
+    type: String,
+    required: true,
+  },
   category: {
     type: String,
     required: true,
-    default: "Work",
-  },
-  paymentMethod: {
-    type: String,
-    required: true,
-    default: "Cash",
   },
   amount: {
     type: Number,

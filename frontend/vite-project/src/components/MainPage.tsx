@@ -11,17 +11,17 @@ import TransactionItem from "./TransactionItem";
 // define structure for FormData type
 interface FormData {
   date?: string;
+  type?: string;
   category?: string;
-  paymentMethod?: string;
   amount?: number;
   note?: string;
 }
 
-interface CalendarEvent {
-  title: string;
-  start: string;
-  allDay: boolean;
-}
+// interface CalendarEvent {
+//   title: string;
+//   start: string;
+//   allDay: boolean;
+// }
 
 // create context for transaction data
 export const DataContext = createContext<any>(null);

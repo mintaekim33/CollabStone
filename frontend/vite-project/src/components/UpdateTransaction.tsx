@@ -8,19 +8,19 @@ import { useParams, useNavigate } from "react-router-dom";
 
 interface FormData {
   date?: string;
+  type?: string;
   category?: string;
-  paymentMethod?: string;
   amount?: number;
   note?: string;
 }
 
 interface Transaction {
   _id?: string;
-  amount?: number;
-  category?: string;
-  note?: string;
-  paymentMethod?: string;
   date?: string;
+  type?: string;
+  category?: string;
+  amount?: number;
+  note?: string;
 }
 
 function UpdateTransaction(props: any) {
@@ -28,7 +28,7 @@ function UpdateTransaction(props: any) {
   //   const [editFormData, setEditFormData]= useState({
   //     date: '',
   //     category: '',
-  //     paymentMethod: '',
+  //     type: '',
   //     amount: 0,
   //     note: ''
   //   })
@@ -44,8 +44,8 @@ function UpdateTransaction(props: any) {
       setSelectedTransaction(transaction);
       setEditFormData({
         date: transaction.date,
+        type: transaction.type,
         category: transaction.category,
-        paymentMethod: transaction.paymentMethod,
         amount: transaction.amount,
         note: transaction.note,
       });
@@ -129,6 +129,21 @@ function UpdateTransaction(props: any) {
           }}
         />
 
+        <label className="text-gray-700">Type</label>
+        <select
+          className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+          value={editFormData?.type || ""}
+          onChange={(e) => {
+            setEditFormData({
+              ...editFormData,
+              type: e.target.value,
+            });
+          }}
+        >
+          <option>Income</option>
+          <option>Expense</option>
+        </select>
+
         <label className="text-gray-700">Category</label>
         <select
           className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -144,23 +159,6 @@ function UpdateTransaction(props: any) {
           <option>Shopping</option>
           <option>Entertainment</option>
           <option>Investment</option>
-        </select>
-
-        <label className="text-gray-700">Payment Method</label>
-        <select
-          className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-          value={editFormData?.paymentMethod || ""}
-          onChange={(e) => {
-            setEditFormData({
-              ...editFormData,
-              paymentMethod: e.target.value,
-            });
-          }}
-        >
-          <option>Cash</option>
-          <option>Credit Card</option>
-          <option>Paylah</option>
-          <option>Paynow</option>
         </select>
 
         <label className="text-gray-700">Amount</label>

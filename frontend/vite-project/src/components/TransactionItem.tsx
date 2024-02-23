@@ -10,11 +10,15 @@ function TransactionItem(props: any) {
   return (
     <>
       <Container className="mx-40 my-10 p-10  gap-3 bg-gray-100 p-4 rounded-md">
-        <Row className="mx-20 my-10 p-10 flex gap-3 bg-red-100 p-4 rounded-md">
+        <Row
+          className={`mx-20 my-10 p-10 flex gap-3 ${
+            transaction.type == "Income" ? "bg-green-100" : "bg-red-100"
+          } p-4 rounded-md`}
+        >
           <Col className="w-1/4">{transaction.date?.split("T")[0]}</Col>
-          <Col className="w-1/4">${transaction.amount}</Col>
+          <Col className="w-1/4">{transaction.type}</Col>
           <Col className="w-1/4">{transaction.category}</Col>
-          <Col className="w-1/4">{transaction.paymentMethod}</Col>
+          <Col className="w-1/4">${transaction.amount}</Col>
           <Col>
             <Link to={"/transaction/" + transaction._id}>
               <Button
