@@ -91,8 +91,30 @@ export async function editTransaction(editedFormData: any, id: string) {
             // throw new Error(errorData);
           }
     } catch (error) {
-        console.log("error getting transaction: ", error)
-        console.error("Error getting transaction: ", error);
+        console.log("error updating transaction: ", error)
+        console.error("Error updating transaction: ", error);
+        throw error;
+    }
+}
+
+export async function deleteTransaction(id: string) {
+    const deleteURL = BASE_URL + `/delete/${id}`
+    try {
+        const res = await fetch(deleteURL, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        if (res.ok) {
+            console.log("data delete successfully! ", res)
+            return await res.json();
+        } else {
+              console.error("data failed to delete ", res)
+          }
+    } catch (error) {
+        console.log("error deleting transaction: ", error)
+        console.error("Error deleting transaction: ", error);
         throw error;
     }
 }

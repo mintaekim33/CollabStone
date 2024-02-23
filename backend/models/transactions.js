@@ -5,6 +5,7 @@ module.exports = {
   getTransactions,
   getTransaction,
   editTransaction,
+  deleteTransaction,
   deleteAll,
 };
 
@@ -22,6 +23,10 @@ function getTransaction(id) {
 
 function editTransaction(id, data) {
   return daoTransactions.findByIdAndUpdate(id, data, { new: true });
+}
+
+function deleteTransaction(id) {
+  return daoTransactions.findByIdAndDelete(id);
 }
 
 function deleteAll() {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  deleteTransaction,
   fetchTransactionData,
   updateTransaction,
 } from "../service/transactions";
@@ -32,15 +33,15 @@ function UpdateTransaction(props: any) {
   //     note: ''
   //   })
   const [editFormData, setEditFormData] = useState<FormData>();
-  const [transactionToUpdate, setTransactionToUpdate] = useState<Transaction>();
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction>();
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async (id: string) => {
       const transaction = await fetchTransactionData(id);
-      //   console.log("transaction data: ", transaction);
-      setTransactionToUpdate(transaction);
+      console.log("transaction data: ", transaction);
+      setSelectedTransaction(transaction);
       setEditFormData({
         date: transaction.date,
         category: transaction.category,
@@ -54,7 +55,7 @@ function UpdateTransaction(props: any) {
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
-    const transactionId = transactionToUpdate?._id; // NO TRANSACTION HERE
+    const transactionId = selectedTransaction?._id;
 
     try {
       const response = await updateTransaction(editFormData, transactionId!);
@@ -87,11 +88,32 @@ function UpdateTransaction(props: any) {
     //       setEvents(updatedEvents);
   }
 
+  async function handleDelete(e: { preventDefault: () => void }) {
+    e.preventDefault();
+
+    try {
+      const transactionId = selectedTransaction?._id;
+      console.log("T ID: ", transactionId);
+      const response = await deleteTransaction(transactionId!);
+
+      // update frontend UI
+      setTransactions((prevTransactions: any[]) =>
+        prevTransactions.filter(
+          (transaction: { _id: string }) => transaction._id !== response._id
+        )
+      );
+    } catch (e) {
+      console.log("Error submitting", e);
+    }
+    // return to main page
+    navigate("/");
+  }
+
   return (
-    <div className="bg-green-300">
+    <div className="p-20 bg-green-200">
       <form
         className="flex flex-col w-full max-w-sm mx-auto space-y-4 p-4 bg-white shadow-md rounded-md"
-        onSubmit={handleSubmit}
+        // onSubmit={handleSubmit}
       >
         <label className="text-gray-700">Date</label>
         <input
@@ -118,9 +140,10 @@ function UpdateTransaction(props: any) {
             });
           }}
         >
-          <option>work</option>
-          <option>home</option>
-          <option>fun</option>
+          <option>Food</option>
+          <option>Shopping</option>
+          <option>Entertainment</option>
+          <option>Investment</option>
         </select>
 
         <label className="text-gray-700">Payment Method</label>
@@ -135,8 +158,9 @@ function UpdateTransaction(props: any) {
           }}
         >
           <option>Cash</option>
-          <option>credit card</option>
-          <option>paylah</option>
+          <option>Credit Card</option>
+          <option>Paylah</option>
+          <option>Paynow</option>
         </select>
 
         <label className="text-gray-700">Amount</label>
@@ -170,12 +194,21 @@ function UpdateTransaction(props: any) {
             });
           }}
         />
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-          type="submit"
-        >
-          Submit
-        </button>
+        <div className="flex">
+          <button
+            className="basis-1/2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            // type="submit"
+            onClick={handleSubmit}
+          >
+            Edit
+          </button>
+          <button
+            className="basis-1/2 bg-blue-300 text-white rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-500"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        </div>
       </form>
     </div>
   );

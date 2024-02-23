@@ -102,9 +102,10 @@ function AddTransaction(props: any) {
               console.log("category: ", formData.category);
             }}
           >
-            <option>work</option>
-            <option>home</option>
-            <option>fun</option>
+            <option>Food</option>
+            <option>Shopping</option>
+            <option>Entertainment</option>
+            <option>Investment</option>
           </select>
 
           <label className="text-gray-700">Payment Method</label>
@@ -119,9 +120,9 @@ function AddTransaction(props: any) {
             }}
           >
             <option>Cash</option>
-            <option>credit card</option>
-            <option>paylah</option>
-            <option>paynow</option>
+            <option>Credit Card</option>
+            <option>Paylah</option>
+            <option>Paynow</option>
           </select>
 
           <label className="text-gray-700">Amount</label>
