@@ -7,11 +7,11 @@ import MainPage from "./components/MainPage";
 
 interface Transaction {
   _id?: string;
-  amount?: number;
-  category?: string;
-  note?: string;
-  paymentMethod?: string;
   date?: string;
+  type?: string;
+  category?: string;
+  amount?: number;
+  note?: string;
 }
 
 // interface CalendarEvent {

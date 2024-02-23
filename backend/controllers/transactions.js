@@ -5,6 +5,7 @@ module.exports = {
   getTransactions,
   getTransaction,
   editTransaction,
+  deleteTransaction,
   deleteAll,
 };
 
@@ -46,17 +47,30 @@ async function getTransaction(req, res) {
 
 async function editTransaction(req, res) {
   const id = req.params.id;
-  console.log("transaction ID: ", id);
+  // console.log("transaction ID: ", id);
   const data = req.body;
-  console.log("Body: ", data);
+  // console.log("Body: ", data);
 
   try {
     const updatedTransaction = await modelTransactions.editTransaction(
       id,
       data
     );
-    console.log("RESPONSE: ", updatedTransaction);
+    // console.log("RESPONSE: ", updatedTransaction);
     res.json(updatedTransaction);
+  } catch (err) {
+    res.status(500).json({ errorMsg: err.message });
+  }
+}
+
+async function deleteTransaction(req, res) {
+  const id = req.params.id;
+  console.log("transaction ID: ", id);
+
+  try {
+    const deletedTransaction = await modelTransactions.deleteTransaction(id);
+    // console.log("RESPONSE: ", deletedTransaction);
+    res.json(deletedTransaction);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }

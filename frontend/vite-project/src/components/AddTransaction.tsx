@@ -90,6 +90,21 @@ function AddTransaction(props: any) {
             }}
           />
 
+          <label className="text-gray-700">Type</label>
+          <select
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            value={formData.type || ""}
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                type: e.target.value,
+              });
+            }}
+          >
+            <option>Income</option>
+            <option>Expense</option>
+          </select>
+
           <label className="text-gray-700">Category</label>
           <select
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
@@ -102,26 +117,10 @@ function AddTransaction(props: any) {
               console.log("category: ", formData.category);
             }}
           >
-            <option>work</option>
-            <option>home</option>
-            <option>fun</option>
-          </select>
-
-          <label className="text-gray-700">Payment Method</label>
-          <select
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-            value={formData.paymentMethod || ""}
-            onChange={(e) => {
-              setFormData({
-                ...formData,
-                paymentMethod: e.target.value,
-              });
-            }}
-          >
-            <option>Cash</option>
-            <option>credit card</option>
-            <option>paylah</option>
-            <option>paynow</option>
+            <option>Food</option>
+            <option>Shopping</option>
+            <option>Entertainment</option>
+            <option>Investment</option>
           </select>
 
           <label className="text-gray-700">Amount</label>
