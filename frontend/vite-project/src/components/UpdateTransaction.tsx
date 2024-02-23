@@ -4,7 +4,7 @@ import {
   fetchTransactionData,
   updateTransaction,
 } from "../service/transactions";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 interface FormData {
   date?: string;
@@ -44,6 +44,8 @@ function UpdateTransaction(props: any) {
   const [transactionToUpdate, setTransactionToUpdate] = useState<Transaction>();
 
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async (id: string) => {
@@ -88,6 +90,9 @@ function UpdateTransaction(props: any) {
     } catch (e) {
       console.log("Error submitting", e);
     }
+
+    // go back to main page
+    navigate("/");
   }
 
   return (
