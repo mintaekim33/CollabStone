@@ -1,15 +1,5 @@
-import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { submitTransaction } from "../service/transactions";
-
-// define structure for FormData type
-// interface FormData {
-//   date?: string;
-//   category?: string;
-//   paymentMethod?: string;
-//   amount?: number;
-//   note?: string;
-// }
 
 function AddTransaction(props: any) {
   const {
@@ -22,22 +12,6 @@ function AddTransaction(props: any) {
     ...rest
   } = props;
 
-  /**moved to app
-   * 
-  const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
-  const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
-
-  const [formData, setFormData] = useState<FormData>({
-    // date: new Date().toISOString().split("T")[0], // Get today's date in 'YYYY-MM-DD' format
-    date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
-  });
-   * 
-   * 
-   *  */
-
-  // console.log("FOrm data, ", formData.date);
-  // console.log("FOrmatted date, ", formattedDate);
-
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
     console.log("ADD BUTTON");
@@ -45,8 +19,6 @@ function AddTransaction(props: any) {
     try {
       const response = await submitTransaction(formData);
       // Upon successful submission, update local state with the newly created transaction
-      // const newTransaction = response; // Assuming the response contains the newly created transaction object
-      // console.log("NEW transaction: ", newTransaction);
       setTransactions((prevTransactions: any) => [
         ...prevTransactions,
         response,

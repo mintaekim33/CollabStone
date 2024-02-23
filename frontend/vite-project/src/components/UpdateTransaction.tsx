@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { DataContext } from "../App";
+import { useEffect, useState } from "react";
 import {
   fetchTransactionData,
   updateTransaction,
@@ -24,15 +23,7 @@ interface Transaction {
 }
 
 function UpdateTransaction(props: any) {
-  const {
-    //transaction, // this is not being passed down from anywhere !
-    selectedTransaction,
-    //   selectedTransactionId,
-    transactionData,
-    transactions,
-    setTransactions,
-  } = props;
-  //   const { transactions, setTransactions } = useContext(DataContext);
+  const { transactions, setTransactions } = props;
   //   const [editFormData, setEditFormData]= useState({
   //     date: '',
   //     category: '',
@@ -42,9 +33,7 @@ function UpdateTransaction(props: any) {
   //   })
   const [editFormData, setEditFormData] = useState<FormData>();
   const [transactionToUpdate, setTransactionToUpdate] = useState<Transaction>();
-
   const { id } = useParams();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,18 +54,13 @@ function UpdateTransaction(props: any) {
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
-
-    // console.log("SELECTED transaction: ", selectedTransaction); // send the transactionId using this
-    // console.log("form data: ", editFormData); // with the data to update
-    console.log("formformform: ", editFormData);
-    // const transactionId = selectedTransaction._id;
     const transactionId = transactionToUpdate?._id; // NO TRANSACTION HERE
 
     try {
       const response = await updateTransaction(editFormData, transactionId!);
       // Upon successful submission, update local state with the edited transaction
 
-      // update frontend UI (?)
+      // update frontend UI
       setTransactions(
         transactions.map((transaction: { _id: string }) => {
           if (transaction._id === response._id) {
@@ -90,7 +74,6 @@ function UpdateTransaction(props: any) {
     } catch (e) {
       console.log("Error submitting", e);
     }
-
     // go back to main page
     navigate("/");
   }
@@ -112,7 +95,6 @@ function UpdateTransaction(props: any) {
               ...editFormData,
               date: e.target.value,
             });
-            // console.log("edit form data: ", editFormData);
           }}
         />
 
@@ -182,8 +164,6 @@ function UpdateTransaction(props: any) {
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
           type="submit"
-          // onClick={props.onHide}
-          //   onClick={() => console.log("EDIT FORM DATA: ", editFormData)}
         >
           Submit
         </button>

@@ -1,4 +1,3 @@
-import { Route, Routes } from "react-router-dom";
 import "../App.css";
 import { useEffect, useState, useRef, createContext } from "react";
 import { Button } from "react-bootstrap";
@@ -8,18 +7,6 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import TransactionItem from "./TransactionItem";
-import EditTransaction from "./EditTransaction";
-import { fetchTransactionsData } from "../service/transactions";
-import UpdateTransaction from "./UpdateTransaction";
-
-interface Transaction {
-  _id?: string;
-  amount?: number;
-  category?: string;
-  note?: string;
-  paymentMethod?: string;
-  date?: string;
-}
 
 // define structure for FormData type
 interface FormData {
@@ -42,22 +29,13 @@ export const DataContext = createContext<any>(null);
 function MainPage(props: any) {
   const { transactions, setTransactions } = props;
   const [addModalShow, setAddModalShow] = useState(false);
-  const [editModalShow, setEditModalShow] = useState(false);
-  //   const [transactions, setTransactions] = useState<Transaction[]>([]); // backend data
   const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
 
   const splitDate = new Date().toLocaleDateString().split("/"); // "dd/MM/yyyy"
   const formattedDate = `${splitDate[2]}-${splitDate[1]}-${splitDate[0]}`; // "yyyy-MM-dd"
   const [formData, setFormData] = useState<FormData>({
-    // date: new Date().toISOString().split("T")[0], // Get today's date in 'YYYY-MM-DD' format
     date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
   });
-
-  const [selectedTransactionId, setSelectedTransactionId] = useState(null);
-  const selectedTransaction = transactions.find(
-    (x: { _id: string }) => x._id === selectedTransactionId
-  );
-
   const fullCalendarRef = useRef(null);
 
   // Load events from localStorage on component mount
@@ -68,23 +46,9 @@ function MainPage(props: any) {
     }
   }, []);
 
-  //   /// for rendering transactions data from DB
-  //   /// if the transaction is edited/deleted, need API call and update events state together
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       const transactions = await fetchTransactionsData();
-  //       setTransactions(transactions);
-  //     };
-  //     fetchData();
-  //   }, []);
-
-  console.log("TRANSACTIONS: ", transactions);
-
   return (
     <>
-      <DataContext.Provider
-        value={{ transactions, setTransactions, selectedTransactionId }}
-      >
+      <DataContext.Provider value={{ transactions, setTransactions }}>
         <AddTransaction
           show={addModalShow}
           onHide={() => setAddModalShow(false)}
@@ -128,11 +92,6 @@ function MainPage(props: any) {
                 <TransactionItem
                   key={transaction._id}
                   transaction={transaction}
-                  editModalShow={editModalShow}
-                  setEditModalShow={setEditModalShow}
-                  formData={formData}
-                  setSelectedTransactionId={setSelectedTransactionId}
-                  selectedTransaction={selectedTransaction}
                 />
               );
             })}
