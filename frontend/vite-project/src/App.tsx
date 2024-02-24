@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, createContext } from "react";
 import { fetchTransactionsData } from "./service/transactions";
 import UpdateTransaction from "./components/UpdateTransaction";
 import MainPage from "./components/MainPage";
+import SignUp from "./components/SignUp";
 
 interface Transaction {
   _id?: string;
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <>
+      {/* NAVBAR */}
       <Routes>
         <Route
           path="/"
@@ -66,6 +68,7 @@ function App() {
             />
           }
         />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </>
   );
