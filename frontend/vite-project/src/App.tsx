@@ -5,6 +5,9 @@ import { fetchTransactionsData } from "./service/transactions";
 import UpdateTransaction from "./components/UpdateTransaction";
 import MainPage from "./components/MainPage";
 import SignUp from "./components/SignUp";
+import LogIn from "./components/LogIn";
+import { getUser } from "./service/users";
+import Auth from "./components/Auth";
 
 interface Transaction {
   _id?: string;
@@ -27,6 +30,7 @@ export const DataContext = createContext<any>(null);
 function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([]); // backend data
   // const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
+  const [user, setUser] = useState(getUser());
 
   // const fullCalendarRef = useRef(null);
 
@@ -43,33 +47,46 @@ function App() {
   return (
     <>
       {/* NAVBAR */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainPage
-              transactions={transactions}
-              setTransactions={setTransactions}
-              // events={events}
-              // setEvents={setEvents}
-              // fullCalendarRef={fullCalendarRef}
+      {user ? (
+        <>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainPage
+                  transactions={transactions}
+                  setTransactions={setTransactions}
+                  // events={events}
+                  // setEvents={setEvents}
+                  // fullCalendarRef={fullCalendarRef}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/transaction/:id"
-          element={
-            <UpdateTransaction
-              transactions={transactions}
-              setTransactions={setTransactions}
-              // events={events}
-              // setEvents={setEvents}
-              // calendar={fullCalendarRef}
+            <Route
+              path="/transaction/:id"
+              element={
+                <UpdateTransaction
+                  transactions={transactions}
+                  setTransactions={setTransactions}
+                  // events={events}
+                  // setEvents={setEvents}
+                  // calendar={fullCalendarRef}
+                />
+              }
             />
-          }
-        />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<LogIn setUser={setUser} />} />
+          </Routes>
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/" element={<Auth />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<LogIn setUser={setUser} />} />
+          </Routes>
+        </>
+      )}
     </>
   );
 }

@@ -22,28 +22,28 @@ export function hashData(password: string) {
   };
 }
 
-// export function hashDataWithSaltRounds(data, salt, iterations) {
-//   return CryptoJS.PBKDF2(data, salt, {
-//     keySize: KEY_SIZE,
-//     iterations: iterations,
-//   }).toString(CryptoJS.enc.Base64);
-// }
+export function hashDataWithSaltRounds(password: string, salt: string, iterations: number) {
+  return CryptoJS.PBKDF2(password, salt, {
+    keySize: KEY_SIZE,
+    iterations: iterations,
+  }).toString(CryptoJS.enc.Base64);
+}
 
-// export function storeToken(token) {
-//   localStorage.setItem("token", token);
-// }
+export function storeToken(token: string) {
+  localStorage.setItem("token", token);
+}
 
-// export function getToken() {
-//   // getItem returns null if there's no string
-//   const token = localStorage.getItem("token");
-//   if (!token) return null;
-//   // Obtain the payload of the token
-//   const payload = JSON.parse(atob(token.split(".")[1]));
-//   // A JWT's exp is expressed in seconds, not milliseconds, so convert
-//   if (payload.exp < Date.now() / 1000) {
-//     // Token has expired - remove it from localStorage
-//     localStorage.removeItem("token");
-//     return null;
-//   }
-//   return token;
-// }
+export function getToken() {
+  // getItem returns null if there's no string
+  const token = localStorage.getItem("token");
+  if (!token) return null;
+  // Obtain the payload of the token
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  // A JWT's exp is expressed in seconds, not milliseconds, so convert
+  if (payload.exp < Date.now() / 1000) {
+    // Token has expired - remove it from localStorage
+    localStorage.removeItem("token");
+    return null;
+  }
+  return token;
+}

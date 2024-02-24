@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { hashData } from "../util/security";
 import { signUp } from "../service/users";
+import { Link } from "react-router-dom";
 
 interface FormState {
   [key: string]: string; // Define the structure of the form state object
@@ -36,7 +37,8 @@ function SignUp() {
       currForm.salt = hash.salt;
       currForm.iterations = hash.iterations;
     }
-    console.log("Curr Form: ", currForm);
+    // console.log("Current form: ", currForm);
+    // console.log("Sign Up Hashed Password: ", currForm.password);
   }
 
   async function handleSubmit(evt: any) {
@@ -45,11 +47,12 @@ function SignUp() {
       // We don't want to send the 'error' or 'confirm' property,
       //  so let's make a copy of the state object, then delete them
       hashPassword();
-      // const formData = { ...formState };
-      // console.log("Form State: ", formData);
-      //     delete formData.error;
-      //     delete formData.confirm;
-      const user = await signUp(formState);
+      const formData = { ...formState };
+      // console.log("Form formData: ", formData);
+      // console.log("Form State: ", formState);
+      // delete formData.error;
+      // delete formData.confirm;
+      const user = await signUp(formData);
       console.log("user - sign up: ", user);
       setSignUpMessage(user); // display message
       setFormState({}); // clear the form
@@ -113,6 +116,10 @@ function SignUp() {
         {signedUp && (
           <Form.Text className="text-muted">Back to Log In</Form.Text>
         )}
+        <Row>Already have an account?</Row>
+        <Row>
+          <Link to="/login">Sign in</Link>
+        </Row>
       </Form>
     </Container>
   );
