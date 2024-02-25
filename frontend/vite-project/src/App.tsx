@@ -10,6 +10,7 @@ import { getUser } from "./service/users";
 import Auth from "./components/Auth";
 import Menubar from "./components/Menubar";
 import { getToken } from "./util/security";
+import Landing from "./components/Landing";
 
 interface Transaction {
   _id?: string;
@@ -50,6 +51,8 @@ function App() {
 
   // for rendering transactions data from DB
   // if the transaction is edited/deleted, need API call and update events state together
+
+  // fetch user-specific transaction items when logging in as a different user
   useEffect(() => {
     const fetchData = async () => {
       const transactions = await fetchTransactionsData();
@@ -96,7 +99,7 @@ function App() {
       ) : (
         <>
           <Routes>
-            <Route path="/" element={<Auth />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<LogIn setUser={setUser} />} />
           </Routes>

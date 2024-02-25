@@ -32,16 +32,18 @@ async function getTransactions(req, res) {
     console.log("res body", res.body);
 
     if (!req.user || !req.user._id) {
-      return res.status(401).json({ error: "log in first" });
+      return res.json({ message: "log in first" });
     }
 
     const data = await modelTransactions.getTransactions();
     // if (req.user._id !== )
-    console.log("unfiltered data: ", data);
+    // console.log("unfiltered data: ", data);
+
+    // filter transaction items by user id
     const filtered = data.filter((x) => {
       return x.userId.toString() === req.user._id;
     });
-    console.log("filtered data: ", filtered);
+    // console.log("filtered data: ", filtered);
     res.json(filtered);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });

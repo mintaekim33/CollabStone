@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { logoutUser } from "../service/users";
+import { Link } from "react-router-dom";
 
 function Menubar(props: any) {
   const { user, setUser } = props;
@@ -12,9 +13,13 @@ function Menubar(props: any) {
   }
 
   return (
-    <Navbar className=" bg-blue-300">
+    <Navbar className="bg-blue-300 h-24">
       <Container>
-        <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand>
+            <p className="mt-4 text-3xl">dollaradar</p>
+          </Navbar.Brand>
+        </Link>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           {user && (
