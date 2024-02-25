@@ -9,9 +9,9 @@ function TransactionItem(props: any) {
 
   return (
     <>
-      <Container className="mx-40 my-10 p-10  gap-3 bg-gray-100 p-4 rounded-md">
+      <Container className="mx-40 gap-1 bg-gray-100 rounded-md">
         <Row
-          className={`mx-20 my-10 p-10 flex gap-3 ${
+          className={`mx-20 p-10 flex gap-3 ${
             transaction.type == "Income" ? "bg-green-100" : "bg-red-100"
           } p-4 rounded-md`}
         >

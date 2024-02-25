@@ -120,10 +120,15 @@ function AddTransaction(props: any) {
               console.log("category: ", formData.category);
             }}
           >
-            <option>Food</option>
-            <option>Shopping</option>
-            <option>Entertainment</option>
-            <option>Investment</option>
+            {formData.type === "Income" ? (
+              <option>Investment</option>
+            ) : (
+              <>
+                <option>Food</option>
+                <option>Shopping</option>
+                <option>Entertainment</option>
+              </>
+            )}
           </select>
 
           <label className="text-gray-700">Amount</label>
@@ -163,7 +168,7 @@ function AddTransaction(props: any) {
             type="submit"
             // onClick={props.onHide}
           >
-            Submit
+            Add
           </button>
         </form>
       </Modal.Body>

@@ -28,6 +28,7 @@ export const DataContext = createContext<any>(null);
 
 function MainPage(props: any) {
   const { userId, transactions, setTransactions } = props;
+  console.log("MAIN PAGE TRANSACTIONS: ", transactions);
   const [addModalShow, setAddModalShow] = useState(false);
   //   const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
 
@@ -56,7 +57,7 @@ function MainPage(props: any) {
   //   }, []);
 
   return (
-    <>
+    <div className="">
       <DataContext.Provider value={{ transactions, setTransactions }}>
         <AddTransaction
           show={addModalShow}
@@ -82,31 +83,33 @@ function MainPage(props: any) {
           events={events}
           // eventDidMount={}
         /> */}
-
-        <Button
-          className=""
-          variant="primary"
-          onClick={() => {
-            setAddModalShow(true);
-          }}
-        >
-          Add a transaction
-        </Button>
-
-        <div className="mx-20 my-10 p-10 bg-sky-100 flex flex-col items-center gap-3">
-          <p>List of transactions</p>
-          {transactions &&
-            transactions.map((transaction: { _id: any }) => {
-              return (
-                <TransactionItem
-                  key={transaction._id}
-                  transaction={transaction}
-                />
-              );
-            })}
+        <div className="flex justify-center mt-8">
+          <Button
+            className="mt-8 px-6 py-3 rounded-lg bg-blue-500 text-white font-semibold shadow-lg hover:bg-blue-600"
+            variant="primary"
+            onClick={() => {
+              setAddModalShow(true);
+            }}
+          >
+            Add a transaction
+          </Button>
+        </div>
+        <div className=" flex justify-center">
+          <div className=" w-1/2 p-10 flex flex-col justify-center items-center gap-3">
+            <h2 className="">My transactions</h2>
+            {transactions &&
+              transactions.map((transaction: { _id: any }) => {
+                return (
+                  <TransactionItem
+                    key={transaction._id}
+                    transaction={transaction}
+                  />
+                );
+              })}
+          </div>
         </div>
       </DataContext.Provider>
-    </>
+    </div>
   );
 }
 

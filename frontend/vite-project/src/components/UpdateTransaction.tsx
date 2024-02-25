@@ -155,10 +155,15 @@ function UpdateTransaction(props: any) {
             });
           }}
         >
-          <option>Food</option>
-          <option>Shopping</option>
-          <option>Entertainment</option>
-          <option>Investment</option>
+          {editFormData?.type === "Income" ? (
+            <option>Investment</option>
+          ) : (
+            <>
+              <option>Food</option>
+              <option>Shopping</option>
+              <option>Entertainment</option>
+            </>
+          )}
         </select>
 
         <label className="text-gray-700">Amount</label>
@@ -201,7 +206,7 @@ function UpdateTransaction(props: any) {
             Edit
           </button>
           <button
-            className="basis-1/2 bg-blue-300 text-white rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-500"
+            className="basis-1/2 bg-blue-500 text-white rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-500"
             onClick={handleDelete}
           >
             Delete

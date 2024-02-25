@@ -31,9 +31,9 @@ async function getTransactions(req, res) {
     console.log("GET TRANS req body", req.body);
     console.log("res body", res.body);
 
-    if (!req.user || !req.user._id) {
-      return res.json({ message: "log in first" });
-    }
+    // if (!req.user || !req.user._id) {
+    //   return res.json({ message: "log in first" });
+    // }
 
     const data = await modelTransactions.getTransactions();
     // if (req.user._id !== )

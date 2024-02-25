@@ -1,7 +1,18 @@
-/* :root {
+.bg-image {
+  background-image: url('../public/bg.jpg'); /* Replace 'path/to/your/image.jpg' with the path to your background image */
+  background-size: cover;
+  background-position: center;
+  /* Add additional background properties as needed */
+}
+
+.font-link {
+  font-family: 'Ubuntu';
+}
+
+ /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 400;
+  font-weight: 500;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -11,8 +22,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
+} */
+/*
 a {
   font-weight: 500;
   color: #646cff;
