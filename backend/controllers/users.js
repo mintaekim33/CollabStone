@@ -4,10 +4,10 @@ module.exports = {
   createUser,
   getLoginDetails,
   loginUser,
+  logoutUser,
   //   getUser,
   //   updateUser,
   //   getReviews,
-  //   logoutUser,
 };
 
 async function createUser(req, res) {
@@ -39,6 +39,22 @@ async function loginUser(req, res) {
     const token = await modelUsers.loginUser(req.body);
     console.log("token", token);
     res.json(token);
+  } catch (err) {
+    res.status(500).json({ errorMsg: err.message });
+  }
+}
+
+async function logoutUser(req, res) {
+  try {
+    console.log(req.body);
+    console.log("req user: ", req.user);
+    const result = await modelUsers.logoutUser(req.body);
+    console.log("log out result: ", result);
+    if (!result.success) {
+      res.status(400).json({ errorMsg: result.error });
+      return;
+    }
+    res.json(result.data);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }

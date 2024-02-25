@@ -32,7 +32,7 @@ export async function signUp(userData: any) {
     // other than basic GET requests, include data, headers, etc.
     const searchParams = new URLSearchParams({ email: email });
     const getLoginDetailsURL = BASE_URL + "/login?" + searchParams;
-    console.log(getLoginDetailsURL)
+    // console.log(getLoginDetailsURL)
     const res = await fetch(getLoginDetailsURL, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -55,7 +55,7 @@ export async function loginUser(userData: any) {
   // Fetch uses an options object as a second arg to make requests
   // other than basic GET requests, include data, headers, etc.
 
-  console.log("login - before api", userData)
+  // console.log("login - before api", userData)
   const loginURL = BASE_URL + "/login";
   const res = await fetch(loginURL, {
     method: "POST",
@@ -64,7 +64,7 @@ export async function loginUser(userData: any) {
     // and assigned to a body property on the options object
     body: JSON.stringify(userData),
   });
-    console.log("login - after api", userData)
+    // console.log("login - after api", userData)
   // Check if request was successful
   if (res.ok) {
     // res.json() will resolve to the JWT
@@ -73,5 +73,22 @@ export async function loginUser(userData: any) {
     return data;
   } else {
     throw new Error("Invalid Login");
+  }
+}
+
+export async function logoutUser(token: string, payload: any) {
+  console.log("API layer ToKEN: ", token)
+  const logoutURL = BASE_URL + "/logout";
+  const res = await fetch(logoutURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: token },
+    body: JSON.stringify(payload),
+  });
+  // Check if request was successful
+  if (res.ok) {
+    // res.json() will resolve to the JWT ??? why JWT here
+    return res.json();
+  } else {
+    throw new Error("Invalid Logout");
   }
 }

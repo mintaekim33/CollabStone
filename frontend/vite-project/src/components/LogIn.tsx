@@ -28,14 +28,14 @@ function LogIn(props: any) {
     try {
       evt.preventDefault();
 
-      console.log("form state: ", formState);
+      // console.log("form state: ", formState);
       const formData = { ...formState };
-      console.log("form data: ", formData);
+      // console.log("form data: ", formData);
 
-      console.log("form data before get login details", formData);
+      // console.log("form data before get login details", formData);
       const loginDetails = await getLoginDetails(formData.email); // retrieve name, salt, iterations
       // console.log("Login details retrieved: ", loginDetails);
-      console.log("form data after get login details", formData);
+      // console.log("form data after get login details", formData);
       // hash password
       const hashedPassword = hashDataWithSaltRounds(
         formData.password,

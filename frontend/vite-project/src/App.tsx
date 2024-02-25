@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import { getUser } from "./service/users";
 import Auth from "./components/Auth";
+import Menubar from "./components/Menubar";
 
 interface Transaction {
   _id?: string;
@@ -46,7 +47,7 @@ function App() {
 
   return (
     <>
-      {/* NAVBAR */}
+      <Menubar user={user} setUser={setUser} />
       {user ? (
         <>
           <Routes>

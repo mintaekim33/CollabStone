@@ -5,10 +5,10 @@ module.exports = {
   createUser,
   getLoginDetails,
   loginUser,
+  logoutUser,
   //   getUser,
   //   updateUser,
   //   getReviews,
-  //   logoutUser,
 };
 
 async function createUser(body) {
@@ -72,4 +72,12 @@ async function loginUser(body) {
     { token: token, expire_at: expiry }
   );
   return { success: true, data: token };
+}
+
+async function logoutUser(body) {
+  if (!body.hasOwnProperty("email")) {
+    return { success: false, error: "missing email" };
+  }
+  daoUsers.updateOne({ email: body.email }, { token: null, expire_at: null });
+  return { success: true, data: "logout successful" };
 }

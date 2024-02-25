@@ -8,6 +8,8 @@ var cors = require("cors");
 require("dotenv").config();
 require("./client/mongo");
 
+var securityMiddleware = require("./middleware/security");
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var transactionsRouter = require("./routes/transactions");
@@ -24,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+app.use(securityMiddleware.checkJWT);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
