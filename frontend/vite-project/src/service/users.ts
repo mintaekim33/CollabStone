@@ -37,19 +37,17 @@ export function getUserPayload() {
   return token ? JSON.parse(atob(token.split(".")[1])).payload : null;
 }
 
-// export async function logoutUser() {
-//   const token = getToken();
-//   if (token) {
-//     const res = await usersAPI.logoutUser(
-//       token,
-//       JSON.parse(atob(token.split(".")[1])).payload
-//       // log this out
-//     );
-//     // removeToken();
-//     localStorage.removeItem("token");
+export async function logoutUser() {
+  const token = getToken();
+  if (token) {
+    const decodedTokenPayload = JSON.parse(atob(token.split(".")[1]))?.payload;
+    console.log("decoded payload: ", decodedTokenPayload)
+    const res = await usersAPI.logoutUser(token,decodedTokenPayload);
+    // removeToken();
+    localStorage.removeItem("token");
 
-//     window.location.reload();
-//     return res;
-//   }
-//   return true;
-// }
+    // window.location.reload();
+    return res;
+  }
+  return true;
+}
