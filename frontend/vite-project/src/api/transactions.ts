@@ -25,11 +25,14 @@ export async function createTransaction(transactionData: any) {
 
 export async function getTransactions() {
     const createURL = BASE_URL + '/getAll';
+    const token = localStorage.getItem('token'); 
+    console.log("get transactions  tokeN : ", token)
     try {
         const res = await fetch(createURL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
         })
         if (res.ok) {

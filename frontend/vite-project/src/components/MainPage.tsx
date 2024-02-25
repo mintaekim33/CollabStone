@@ -27,7 +27,7 @@ interface FormData {
 export const DataContext = createContext<any>(null);
 
 function MainPage(props: any) {
-  const { transactions, setTransactions } = props;
+  const { userId, transactions, setTransactions } = props;
   const [addModalShow, setAddModalShow] = useState(false);
   //   const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
 
@@ -36,6 +36,15 @@ function MainPage(props: any) {
   const [formData, setFormData] = useState<FormData>({
     date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
   });
+
+  // if there is user, add userId field to the form
+  useEffect(() => {
+    if (userId) {
+      setFormData((prevState: any) => ({ ...prevState, userId: userId }));
+    }
+    console.log("Form Data : ", formData);
+  }, [userId]);
+
   //   const fullCalendarRef = useRef(null);
 
   // Load events from localStorage on component mount

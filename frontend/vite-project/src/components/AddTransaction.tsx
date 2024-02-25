@@ -1,5 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import { submitTransaction } from "../service/transactions";
+import { getUser } from "../service/users";
+import { useEffect } from "react";
 
 function AddTransaction(props: any) {
   const {
@@ -13,6 +15,7 @@ function AddTransaction(props: any) {
   } = props;
 
   async function handleSubmit(e: { preventDefault: () => void }) {
+    console.log("form", formData);
     e.preventDefault();
     console.log("ADD BUTTON");
 
@@ -101,8 +104,8 @@ function AddTransaction(props: any) {
               });
             }}
           >
-            <option>Income</option>
             <option>Expense</option>
+            <option>Income</option>
           </select>
 
           <label className="text-gray-700">Category</label>

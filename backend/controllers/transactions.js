@@ -28,8 +28,21 @@ async function createTransaction(req, res) {
 
 async function getTransactions(req, res) {
   try {
+    console.log("GET TRANS req body", req.body);
+    console.log("res body", res.body);
+
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ error: "log in first" });
+    }
+
     const data = await modelTransactions.getTransactions();
-    res.json(data);
+    // if (req.user._id !== )
+    console.log("unfiltered data: ", data);
+    const filtered = data.filter((x) => {
+      return x.userId.toString() === req.user._id;
+    });
+    console.log("filtered data: ", filtered);
+    res.json(filtered);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }
@@ -49,9 +62,22 @@ async function editTransaction(req, res) {
   const id = req.params.id;
   // console.log("transaction ID: ", id);
   const data = req.body;
+  // const userId = req.user._id;
   // console.log("Body: ", data);
 
   try {
+    const fetchedTransaction = await modelTransactions.getTransaction(id);
+    if (fetchedTransaction.is_guest)
+      // or just use checkLogin function instead??
+      return res
+        .status(403)
+        .json("You are not allowed to edit. Please log n first");
+    // if (fetchedTransaction.userId.toString() !== userId) {
+    //   return res
+    //     .status(403)
+    //     .json({ message: "FORBIDDEN: USER NOT AUTHORIZED!" });
+    // }
+
     const updatedTransaction = await modelTransactions.editTransaction(
       id,
       data

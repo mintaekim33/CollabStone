@@ -140,8 +140,8 @@ function UpdateTransaction(props: any) {
             });
           }}
         >
-          <option>Income</option>
           <option>Expense</option>
+          <option>Income</option>
         </select>
 
         <label className="text-gray-700">Category</label>

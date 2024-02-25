@@ -9,6 +9,7 @@ import LogIn from "./components/LogIn";
 import { getUser } from "./service/users";
 import Auth from "./components/Auth";
 import Menubar from "./components/Menubar";
+import { getToken } from "./util/security";
 
 interface Transaction {
   _id?: string;
@@ -32,6 +33,18 @@ function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([]); // backend data
   // const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
   const [user, setUser] = useState(getUser());
+  const [userId, setUserId] = useState("");
+
+  // retrieve user id when logged in
+  useEffect(() => {
+    const token = getToken();
+    const payload = token
+      ? JSON.parse(atob(token.split(".")[1])).payload
+      : null;
+    if (payload && payload._id) {
+      setUserId(payload._id);
+    }
+  }, [user]);
 
   // const fullCalendarRef = useRef(null);
 
@@ -43,7 +56,7 @@ function App() {
       setTransactions(transactions);
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -57,6 +70,7 @@ function App() {
                 <MainPage
                   transactions={transactions}
                   setTransactions={setTransactions}
+                  userId={userId}
                   // events={events}
                   // setEvents={setEvents}
                   // fullCalendarRef={fullCalendarRef}

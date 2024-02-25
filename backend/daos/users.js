@@ -30,7 +30,7 @@ const userSchema = new Schema(
     expire_at: {
       type: Number,
     },
-    is_admin: {
+    is_guest: {
       type: Boolean,
       default: false,
     },

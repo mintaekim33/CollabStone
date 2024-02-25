@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const TransactionSchema = new Schema({
   // referencing user model
-  //   userId: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "Users",
-  //     required: true,
-  //   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Users",
+    required: true,
+  },
   date: {
     type: Date,
     required: true,
@@ -17,10 +17,12 @@ const TransactionSchema = new Schema({
   type: {
     type: String,
     required: true,
+    default: "Expense",
   },
   category: {
     type: String,
     required: true,
+    default: "Food",
   },
   amount: {
     type: Number,
