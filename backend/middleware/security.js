@@ -9,21 +9,23 @@ module.exports = {
 // authenticate incoming requests by verifying if the token is valid
 // and set req.user to decoded info
 function checkJWT(req, res, next) {
+  //   console.log("req query ", req.query);
   let token = req.get("Authorization") || req.query.token;
+  //   console.log("CHECK JWT TOKEN ", token);
   if (token) {
     token = token.replace("Bearer ", "");
     try {
       const decoded = utilSecurity.verifyJWT(token);
       req.user = decoded.payload; // Set the user information from the payload property
     } catch (err) {
-      console.error("JWT verification error:", err);
+      //   console.error("JWT verification error:", err);
       req.user = null;
     }
   } else {
     console.error("No token provided");
     req.user = null;
   }
-  console.log("req user : ", req.user);
+  //   console.log("CHECK JWT req user : ", req.user);
   next();
 }
 
@@ -34,12 +36,12 @@ function checkLogin(req, res, next) {
 }
 
 function checkPermission(req, res, next) {
-  if (!req.user) return res.status(401).json("Unauthorized");
+  if (!req.user) return res.status(401).json("Unauthorized - check permission");
 
   const userIdFromRequest =
     req.body._id || req.body.userId || req.query.userId || req.params.userId;
 
-  console.log("userId from requests : ", userIdFromRequest);
+  //   console.log("userId from requests : ", userIdFromRequest);
 
   // User ID check for logout operation
   if (

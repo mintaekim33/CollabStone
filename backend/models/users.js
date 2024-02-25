@@ -63,7 +63,7 @@ async function loginUser(body) {
     _id: user._id,
     user: user.name,
     email: user.email,
-    is_admin: user.is_admin,
+    // is_admin: user.is_admin,
   };
   const token = utilSecurity.createJWT(jwtPayload);
   const expiry = utilSecurity.getExpiry(token);
