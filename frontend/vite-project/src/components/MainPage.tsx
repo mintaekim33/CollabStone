@@ -2,10 +2,10 @@ import "../App.css";
 import { useEffect, useState, useRef, createContext } from "react";
 import { Button } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import listPlugin from "@fullcalendar/list";
+// import FullCalendar from "@fullcalendar/react";
+// import dayGridPlugin from "@fullcalendar/daygrid";
+// import timeGridPlugin from "@fullcalendar/timegrid";
+// import listPlugin from "@fullcalendar/list";
 import TransactionItem from "./TransactionItem";
 
 // define structure for FormData type
@@ -83,29 +83,32 @@ function MainPage(props: any) {
           events={events}
           // eventDidMount={}
         /> */}
-        <div className="flex justify-center mt-8">
-          <Button
-            className="mt-8 px-6 py-3 rounded-lg bg-blue-500 text-white font-semibold shadow-lg hover:bg-blue-600"
-            variant="primary"
-            onClick={() => {
-              setAddModalShow(true);
-            }}
-          >
-            Add a transaction
-          </Button>
-        </div>
-        <div className=" flex justify-center">
+        <div className="flex justify-center pt-8"></div>
+        <div className="flex justify-center">
           <div className=" w-1/2 p-10 flex flex-col justify-center items-center gap-3">
-            <h2 className="">My transactions</h2>
-            {transactions &&
-              transactions.map((transaction: { _id: any }) => {
-                return (
-                  <TransactionItem
-                    key={transaction._id}
-                    transaction={transaction}
-                  />
-                );
-              })}
+            <h2 className="text-2xl font-semibold text-center mb-6">
+              My transactions
+            </h2>
+            <Button
+              className="px-6 rounded-lg bg-blue-500 text-white font-semibold shadow-lg hover:bg-blue-600"
+              variant="primary"
+              onClick={() => {
+                setAddModalShow(true);
+              }}
+            >
+              Add
+            </Button>
+            <div className="w-full mt-8 flex flex-col gap-3">
+              {transactions &&
+                transactions.map((transaction: { _id: any }) => {
+                  return (
+                    <TransactionItem
+                      key={transaction._id}
+                      transaction={transaction}
+                    />
+                  );
+                })}
+            </div>
           </div>
         </div>
       </DataContext.Provider>

@@ -2,33 +2,26 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Button } from "react-bootstrap";
+import { PencilIcon } from "@heroicons/react/24/solid";
 
 function TransactionItem(props: any) {
   const { transaction } = props;
 
   return (
     <>
-      <Container className="mx-40 gap-1 bg-gray-100 rounded-md">
+      <Container>
         <Row
-          className={`mx-20 p-10 flex gap-3 ${
+          className={`mx-20 p-10 rounded-md ${
             transaction.type == "Income" ? "bg-green-100" : "bg-red-100"
-          } p-4 rounded-md`}
+          } p-4 flex items-center justify-between`}
         >
-          <Col className="w-1/4">{transaction.date?.split("T")[0]}</Col>
-          <Col className="w-1/4">{transaction.type}</Col>
-          <Col className="w-1/4">{transaction.category}</Col>
-          <Col className="w-1/4">${transaction.amount}</Col>
+          <Col className="flex-initial">{transaction.date?.split("T")[0]}</Col>
+          <Col className="flex-initial">{transaction.type}</Col>
+          <Col className="flex-initial">{transaction.category}</Col>
+          <Col className="flex-initial">${transaction.amount}</Col>
           <Col>
             <Link to={"/transaction/" + transaction._id}>
-              <Button
-                variant="primary"
-                type="submit"
-                value="Submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-              >
-                Edit a transaction
-              </Button>
+              <PencilIcon className="w-6 text-sky-600" />
             </Link>
           </Col>
         </Row>
