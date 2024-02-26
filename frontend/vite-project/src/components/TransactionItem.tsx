@@ -6,6 +6,7 @@ import { Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBagShopping,
+  faCreditCard,
   faPencil,
   faSackDollar,
   faTicket,
@@ -34,6 +35,12 @@ function TransactionItem(props: any) {
           <Card.Text className="">{formattedDate}</Card.Text>
           <Card.Text className="">
             <span className="mr-1">
+              {transaction.category === "Salary" && (
+                <FontAwesomeIcon
+                  icon={faCreditCard}
+                  style={{ color: "#9a0e23" }}
+                />
+              )}
               {transaction.category === "Investment" && (
                 <FontAwesomeIcon
                   icon={faSackDollar}

@@ -155,10 +155,14 @@ function UpdateTransaction(props: any) {
               ...editFormData,
               category: e.target.value,
             });
+            console.log(e.target.value);
           }}
         >
           {editFormData?.type === "Income" ? (
-            <option>Investment</option>
+            <>
+              <option>Salary</option>
+              <option>Investment</option>
+            </>
           ) : (
             <>
               <option>Food</option>

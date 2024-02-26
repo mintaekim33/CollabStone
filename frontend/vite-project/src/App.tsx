@@ -39,11 +39,11 @@ function App() {
   // retrieve user id when logged in
   useEffect(() => {
     const token = getToken();
-    const payload = token
-      ? JSON.parse(atob(token.split(".")[1])).payload
-      : null;
-    if (payload && payload._id) {
-      setUserId(payload._id);
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1])).payload;
+      if (payload && payload._id) {
+        setUserId(payload._id);
+      }
     }
   }, [user]);
 

@@ -13,7 +13,7 @@ interface FormState {
 function LogIn(props: any) {
   const { setUser } = props;
   const [formState, setFormState] = useState<FormState>({});
-  const [logInMessage, setLogInMessage] = useState();
+  const [logInMessage, setLogInMessage] = useState("");
   const navigate = useNavigate();
 
   function handleChange(evt: any) {
@@ -34,29 +34,36 @@ function LogIn(props: any) {
 
       // console.log("form data before get login details", formData);
       const loginDetails = await getLoginDetails(formData.email); // retrieve name, salt, iterations
-      // console.log("Login details retrieved: ", loginDetails);
-      // console.log("form data after get login details", formData);
-      // hash password
-      const hashedPassword = hashDataWithSaltRounds(
-        formData.password,
-        loginDetails.salt,
-        loginDetails.iterations
-      );
-      // console.log("Log In Hashed Password: ", hashedPassword);
-      formData.password = hashedPassword;
-
-      // actually log in
-      const token = await loginUser(formData);
-      console.log("token", token);
-      if (token.success === false) {
-        setLogInMessage(token.error);
-      } else {
-        // store token in localStorage
-        storeToken(token.data);
+      console.log("Login details retrieved: ", loginDetails);
+      console.log("form data after get login details", formData);
+      // check if the form is filled and there is no login details retrieved
+      if (Object.keys(formData).length !== 0 && loginDetails === null) {
+        setLogInMessage("No such user registered");
       }
-      // navigate to home
-      setUser(getUser());
-      navigate("/");
+
+      if (loginDetails) {
+        // hash password
+        const hashedPassword = hashDataWithSaltRounds(
+          formData.password,
+          loginDetails.salt,
+          loginDetails.iterations
+        );
+        // console.log("Log In Hashed Password: ", hashedPassword);
+        formData.password = hashedPassword;
+
+        // actually log in
+        const token = await loginUser(formData);
+        console.log("token", token);
+        if (token.success === false) {
+          setLogInMessage(token.error);
+        } else {
+          // store token in localStorage
+          storeToken(token.data);
+        }
+        // navigate to home
+        setUser(getUser());
+        navigate("/");
+      }
 
       // // retrieve user id from token
     } catch (e) {
@@ -82,6 +89,7 @@ function LogIn(props: any) {
             className="block w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             value={formState.email || ""}
             onChange={handleChange}
+            required
           />
         </Form.Group>
 
@@ -94,6 +102,7 @@ function LogIn(props: any) {
             className="block w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
             value={formState.password || ""}
             onChange={handleChange}
+            required
           />
         </Form.Group>
 

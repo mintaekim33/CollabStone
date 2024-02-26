@@ -1,5 +1,5 @@
 import "../App.css";
-import { useEffect, useState, useRef, createContext } from "react";
+import { useEffect, useState, useRef, createContext, ReactNode } from "react";
 import { Button } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
 // import FullCalendar from "@fullcalendar/react";
@@ -43,7 +43,6 @@ function MainPage(props: any) {
     if (userId) {
       setFormData((prevState: any) => ({ ...prevState, userId: userId }));
     }
-    console.log("Form Data : ", formData);
   }, [userId]);
 
   //   const fullCalendarRef = useRef(null);
@@ -100,14 +99,17 @@ function MainPage(props: any) {
             </Button>
             <div className="w-full mt-8 flex flex-col gap-3">
               {transactions &&
-                transactions.map((transaction: { _id: any }) => {
-                  return (
-                    <TransactionItem
-                      key={transaction._id}
-                      transaction={transaction}
-                    />
-                  );
-                })}
+                transactions.map(
+                  (transaction: { amount: ReactNode; _id: any }) => {
+                    return (
+                      <TransactionItem
+                        key={transaction._id}
+                        transaction={transaction}
+                      />
+                      /* <div className="bg-red-300">{transaction.amount}</div> */
+                    );
+                  }
+                )}
             </div>
           </div>
         </div>

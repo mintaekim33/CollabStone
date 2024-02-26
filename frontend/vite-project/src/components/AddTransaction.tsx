@@ -121,7 +121,10 @@ function AddTransaction(props: any) {
             }}
           >
             {formData.type === "Income" ? (
-              <option>Investment</option>
+              <>
+                <option>Salary</option>
+                <option>Investment</option>
+              </>
             ) : (
               <>
                 <option>Food</option>
