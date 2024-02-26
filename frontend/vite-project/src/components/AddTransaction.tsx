@@ -64,7 +64,7 @@ function AddTransaction(props: any) {
   return (
     <Modal
       {...rest}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >

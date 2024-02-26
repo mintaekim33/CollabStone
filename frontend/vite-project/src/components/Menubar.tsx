@@ -26,6 +26,7 @@ function Menubar(props: any) {
         <Navbar.Collapse className="justify-content-end">
           {user ? (
             <>
+              <div className="mr-12">Dashboard here</div>
               <Navbar.Text className="mr-4 text-white">
                 Signed in as: <span className="font-semibold">{user}</span>
               </Navbar.Text>
@@ -37,9 +38,12 @@ function Menubar(props: any) {
               </Button>
             </>
           ) : (
-            <Link to="/login">
-              <Button variant="light">Log In</Button>
-            </Link>
+            <>
+              <div className="mr-12">Enquiry here</div>
+              <Link to="/login">
+                <Button variant="light">Log In</Button>
+              </Link>
+            </>
           )}
         </Navbar.Collapse>
       </Container>
