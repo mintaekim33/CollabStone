@@ -6,7 +6,6 @@ module.exports = {
   getTransaction,
   editTransaction,
   deleteTransaction,
-  deleteAll,
 };
 
 function createTransaction(param) {

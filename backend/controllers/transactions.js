@@ -6,7 +6,6 @@ module.exports = {
   getTransaction,
   editTransaction,
   deleteTransaction,
-  deleteAll,
 };
 
 async function createTransaction(req, res) {
