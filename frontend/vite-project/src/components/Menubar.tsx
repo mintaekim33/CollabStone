@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Nav } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { logoutUser } from "../service/users";
@@ -26,7 +26,12 @@ function Menubar(props: any) {
         <Navbar.Collapse className="justify-content-end">
           {user ? (
             <>
-              <div className="mr-12">Dashboard here</div>
+              <Link className="mr-8 no-underline" to="/">
+                <Navbar.Text className="text-white ">Transactions</Navbar.Text>
+              </Link>
+              <Link className="mr-8 no-underline" to="/dashboard">
+                <Navbar.Text className="text-white ">Dashboard</Navbar.Text>
+              </Link>
               <Navbar.Text className="mr-4 text-white">
                 Signed in as: <span className="font-semibold">{user}</span>
               </Navbar.Text>

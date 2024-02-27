@@ -1,5 +1,5 @@
 import "../App.css";
-import { useEffect, useState, useRef, createContext, ReactNode } from "react";
+import { useEffect, useState, useRef, createContext } from "react";
 import { Button } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
 // import FullCalendar from "@fullcalendar/react";
@@ -82,7 +82,7 @@ function MainPage(props: any) {
           events={events}
           // eventDidMount={}
         /> */}
-        <div className="flex justify-center pt-8"></div>
+
         <div className="flex justify-center">
           <div className=" w-1/2 p-10 flex flex-col justify-center items-center gap-3">
             <h2 className="text-2xl font-semibold text-center mb-6">
@@ -99,17 +99,15 @@ function MainPage(props: any) {
             </Button>
             <div className="w-full mt-8 flex flex-col gap-3">
               {transactions &&
-                transactions.map(
-                  (transaction: { amount: ReactNode; _id: any }) => {
-                    return (
-                      <TransactionItem
-                        key={transaction._id}
-                        transaction={transaction}
-                      />
-                      /* <div className="bg-red-300">{transaction.amount}</div> */
-                    );
-                  }
-                )}
+                transactions.map((transaction: { _id: any }) => {
+                  return (
+                    <TransactionItem
+                      key={transaction._id}
+                      transaction={transaction}
+                    />
+                    /* <div className="bg-red-300">{transaction.amount}</div> */
+                  );
+                })}
             </div>
           </div>
         </div>

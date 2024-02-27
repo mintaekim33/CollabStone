@@ -11,6 +11,7 @@ import Auth from "./components/Auth";
 import Menubar from "./components/Menubar";
 import { getToken } from "./util/security";
 import Landing from "./components/Landing";
+import Dashboard from "./components/Dashboard";
 
 interface Transaction {
   _id?: string;
@@ -79,6 +80,10 @@ function App() {
                   // fullCalendarRef={fullCalendarRef}
                 />
               }
+            />
+            <Route
+              path="/dashboard"
+              element={<Dashboard transactions={transactions} />}
             />
             <Route
               path="/transaction/:id"
