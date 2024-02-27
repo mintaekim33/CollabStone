@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function Dashboard(props: any) {
   const { transactions } = props;
@@ -28,6 +31,12 @@ function Dashboard(props: any) {
       });
     }
 
+    // Expense Map
+    //  [
+    //     ["Food", 80],      // Total expenses for Food category: 80
+    //     ["Shopping", 100], // Total expenses for Shopping category: 100
+    //  ]
+
     const expenseData = Array.from(expenseMap).map(([category, amount]) => ({
       category,
       amount,
@@ -36,6 +45,12 @@ function Dashboard(props: any) {
       category,
       amount,
     }));
+
+    // Expense data
+    // [
+    //   { category: "Food", amount: 80 },
+    //   { category: "Shopping", amount: 100 }
+    // ]
 
     setExpenseData(expenseData);
     setIncomeData(incomeData);
@@ -50,12 +65,29 @@ function Dashboard(props: any) {
     "#A3A3A3",
   ];
 
+  const totalExpense = expenseData.reduce(
+    (total, entry) => total + entry.amount,
+    0
+  );
+  const totalIncome = incomeData.reduce(
+    (total, entry) => total + entry.amount,
+    0
+  );
+  const balance = totalIncome - totalExpense;
+
   return (
     <>
+      <Container className="outline flex justify-center items-center h-20">
+        <Row className="outline w-3/4 h-1/2">
+          <Col>Total Expenses: {totalExpense}</Col>
+          <Col>Total Income: {totalIncome}</Col>
+          <Col>Balance: {balance} </Col>
+        </Row>
+      </Container>
       <div className="flex justify-center pt-8">
-        <div className="outline" style={{ width: 400 }}>
-          <h2>Expense</h2>
-          <PieChart width={400} height={400}>
+        <div className="outline" style={{ width: 500 }}>
+          <h3 className="flex justify-center">Expense by Category</h3>
+          <PieChart width={500} height={500}>
             <Pie
               dataKey="amount"
               data={expenseData}
@@ -63,21 +95,20 @@ function Dashboard(props: any) {
               cy="50%"
               outerRadius={80}
               fill="#8884d8"
-              label
+              label={({ category, amount }) => `${category}: $${amount}`}
             >
               {expenseData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  // fill={`#${index}${index}${index}`}
                   fill={COLORS[index % COLORS.length]}
                 />
               ))}
             </Pie>
           </PieChart>
         </div>
-        <div className="outline" style={{ width: 400 }}>
-          <h2>Income</h2>
-          <PieChart width={400} height={400}>
+        <div className="outline" style={{ width: 500 }}>
+          <h3 className="flex justify-center">Income by Category</h3>
+          <PieChart width={500} height={500}>
             <Pie
               dataKey="amount"
               data={incomeData}
@@ -85,18 +116,20 @@ function Dashboard(props: any) {
               cy="50%"
               outerRadius={80}
               fill="#8884d8"
-              label
+              label={({ category, amount }) => `${category}: $${amount}`}
             >
               {incomeData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={`#${index}${index}${index}`}
+                  fill={COLORS[index % COLORS.length]}
                 />
               ))}
             </Pie>
           </PieChart>
         </div>
       </div>
+
+      {/* bar chart of expenses and income every month */}
     </>
   );
 }

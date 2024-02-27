@@ -68,6 +68,8 @@ function MainPage(props: any) {
           setTransactions={setTransactions}
           formData={formData}
           setFormData={setFormData}
+          formattedDate={formattedDate}
+          userId={userId}
         />
 
         {/* <FullCalendar

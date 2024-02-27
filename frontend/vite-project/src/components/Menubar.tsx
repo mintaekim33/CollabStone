@@ -2,14 +2,16 @@ import { Button, Nav } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { logoutUser } from "../service/users";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Menubar(props: any) {
   const { user, setUser } = props;
+  const navigate = useNavigate();
 
   function handleLogOut() {
     logoutUser();
     setUser(null);
+    navigate("/");
   }
 
   return (

@@ -9,6 +9,8 @@ function AddTransaction(props: any) {
     setFormData,
     transactions,
     setTransactions,
+    formattedDate,
+    userId,
     // events,
     // setEvents,
     ...rest
@@ -33,11 +35,20 @@ function AddTransaction(props: any) {
     }
     // close modal
     rest.onHide();
-    // clear amount
+    // clear form
     setFormData({
-      ...formData,
+      ...formData, // consider changing type and category back to default
       amount: 0,
     });
+
+    // setFormData({
+    //   userId: userId,
+    //   date: formattedDate, // Assuming formattedDate is the default date
+    //   type: "", // Set other form fields to their default values
+    //   category: "",
+    //   amount: 0,
+    //   note: "",
+    // });
 
     // Add transaction record
     // const fullCalendarApi = rest.calendar.current.getApi();

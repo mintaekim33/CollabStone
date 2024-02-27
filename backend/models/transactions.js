@@ -28,7 +28,3 @@ function editTransaction(id, data) {
 function deleteTransaction(id) {
   return daoTransactions.findByIdAndDelete(id);
 }
-
-function deleteAll() {
-  return daoTransactions.deleteMany({});
-}

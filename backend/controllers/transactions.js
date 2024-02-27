@@ -103,12 +103,3 @@ async function deleteTransaction(req, res) {
     res.status(500).json({ errorMsg: err.message });
   }
 }
-
-async function deleteAll(req, res) {
-  try {
-    const data = await modelTransactions.deleteAll();
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ errorMsg: err.message });
-  }
-}
