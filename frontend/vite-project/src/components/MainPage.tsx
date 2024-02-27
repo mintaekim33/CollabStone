@@ -28,7 +28,6 @@ export const DataContext = createContext<any>(null);
 
 function MainPage(props: any) {
   const { userId, transactions, setTransactions } = props;
-  console.log("MAIN PAGE TRANSACTIONS: ", transactions);
   const [addModalShow, setAddModalShow] = useState(false);
   //   const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
 
@@ -54,6 +53,15 @@ function MainPage(props: any) {
   //       setEvents(JSON.parse(storedEvents));
   //     }
   //   }, []);
+
+  console.log("MAIN PAGE TRANSACTIONS: ", transactions);
+  transactions.sort((a: any, b: any) => {
+    const dateA: Date = new Date(a.date);
+    const dateB: Date = new Date(b.date);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  console.log("SOrted : ", transactions);
 
   return (
     <div className="">
