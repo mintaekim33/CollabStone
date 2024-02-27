@@ -1,6 +1,6 @@
 import "../App.css";
 import { useEffect, useState, useRef, createContext } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
 // import FullCalendar from "@fullcalendar/react";
 // import dayGridPlugin from "@fullcalendar/daygrid";
@@ -37,6 +37,9 @@ function MainPage(props: any) {
     date: formattedDate, // Get today's date in 'YYYY-MM-DD' format
   });
 
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
+
   // if there is user, add userId field to the form
   useEffect(() => {
     if (userId) {
@@ -54,14 +57,79 @@ function MainPage(props: any) {
   //     }
   //   }, []);
 
-  console.log("MAIN PAGE TRANSACTIONS: ", transactions);
-  transactions.sort((a: any, b: any) => {
-    const dateA: Date = new Date(a.date);
-    const dateB: Date = new Date(b.date);
-    return dateB.getTime() - dateA.getTime();
-  });
+  // console.log("MAIN PAGE TRANSACTIONS: ", transactions);
+  if (transactions) {
+    transactions.sort((a: any, b: any) => {
+      const dateA: Date = new Date(a.date);
+      const dateB: Date = new Date(b.date);
 
-  console.log("SOrted : ", transactions);
+      // Reverse the comparison based on sort order
+      return sortOrder === "asc"
+        ? dateA.getTime() - dateB.getTime()
+        : dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  // console.log("SOrted : ", transactions);
+
+  const toggleSortOrder = () => {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
+  // filter by month
+  function filterTransactionsByMonth(transactions: any, selectedMonth: number) {
+    const filteredTransactions = transactions?.filter(
+      (transaction: { date: string | number | Date }) => {
+        const transactionMonth = new Date(transaction.date).getMonth();
+        return transactionMonth === selectedMonth;
+      }
+    );
+    return filteredTransactions;
+  }
+
+  const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedMonthValue = event.target.value;
+    const selectedMonth =
+      selectedMonthValue !== "" ? parseInt(selectedMonthValue) : null; // Convert to null if empty string
+    setSelectedMonth(selectedMonth);
+  };
+
+  // const filteredTransactions =
+  //   selectedMonth !== null
+  //     ? filterTransactionsByMonth(transactions, selectedMonth)
+  //     : transactions;
+
+  // to render relevant months in the dropdown
+  const getUniqueMonths = (transactions: any[]) => {
+    const uniqueMonths = new Set<number>();
+    transactions.forEach((transaction: any) => {
+      const month = new Date(transaction.date).getMonth();
+      uniqueMonths.add(month);
+    });
+    return Array.from(uniqueMonths);
+  };
+
+  const uniqueMonths = transactions ? getUniqueMonths(transactions) : [];
+
+  function getMonthName(month: number) {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    return monthNames[month];
+  }
+
+  console.log("SELECTED MONTH: ", selectedMonth);
 
   return (
     <div className="">
@@ -94,7 +162,7 @@ function MainPage(props: any) {
         /> */}
 
         <div className="flex justify-center">
-          <div className=" w-1/2 p-10 flex flex-col justify-center items-center gap-3">
+          <div className="  w-1/2 p-10 flex flex-col justify-center items-center gap-3">
             <h2 className="text-2xl font-semibold text-center mb-6">
               My transactions
             </h2>
@@ -108,17 +176,43 @@ function MainPage(props: any) {
               Add
             </Button>
             <div className="w-full mt-8 flex flex-col gap-3">
-              {transactions &&
-                transactions.map((transaction: { _id: any }) => {
-                  return (
+              {selectedMonth !== null
+                ? filterTransactionsByMonth(transactions, selectedMonth).map(
+                    (transaction: { _id: any }) => (
+                      <TransactionItem
+                        key={transaction._id}
+                        transaction={transaction}
+                      />
+                    )
+                  )
+                : transactions &&
+                  transactions.map((transaction: { _id: any }) => (
                     <TransactionItem
                       key={transaction._id}
                       transaction={transaction}
                     />
-                    /* <div className="bg-red-300">{transaction.amount}</div> */
-                  );
-                })}
+                  ))}
             </div>
+          </div>
+          <div className="h-20 flex justify-between px-4 py-2 mx-auto space-x-4">
+            <Container
+              className="flex items-center cursor-pointer block border border-gray-300 rounded-md px-4"
+              onClick={toggleSortOrder}
+            >
+              {sortOrder === "asc" ? "Sort by latest" : "Sort by oldest"}
+            </Container>
+            <select
+              className="block border border-gray-300 rounded-md px-4"
+              onChange={handleMonthChange}
+              value={selectedMonth !== null ? selectedMonth.toString() : ""}
+            >
+              <option value="">All months</option>
+              {uniqueMonths.map((month: number) => (
+                <option key={month} value={month}>
+                  {getMonthName(month)}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </DataContext.Provider>

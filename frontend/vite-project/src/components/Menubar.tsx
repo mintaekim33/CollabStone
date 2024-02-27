@@ -46,7 +46,7 @@ function Menubar(props: any) {
             </>
           ) : (
             <>
-              <div className="mr-12">Enquiry here</div>
+              {/* <div className="mr-12">Enquiry here</div> */}
               <Link to="/login">
                 <Button variant="light">Log In</Button>
               </Link>
