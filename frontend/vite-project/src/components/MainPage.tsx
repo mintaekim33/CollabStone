@@ -115,10 +115,10 @@ function MainPage(props: any) {
           userId={userId}
         />
 
-        <div className="flex justify-center pt-12 ">
+        <div className="flex justify-center w-full pt-12 ">
           <div className="flex flex-col w-full items-center ">
             <div className="flex items-center justify-between space-x-4 mb-4">
-              <h2 className=" flex  justify-center  text-2xl font-semibold">
+              <h2 className=" flex  justify-center text-2xl font-semibold">
                 My transactions
               </h2>
               <FontAwesomeIcon
@@ -146,7 +146,6 @@ function MainPage(props: any) {
                   </option>
                 ))}
               </select>
-              {/* </div> */}
             </div>
             <div className=" w-full flex justify-center">
               <TransactionTable

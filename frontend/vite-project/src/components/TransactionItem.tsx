@@ -29,8 +29,8 @@ function TransactionItem(props: any) {
       <Table striped bordered hover className="m-0">
         <tbody>
           <tr>
-            <td className="w-1/5 text-center">{formattedDate}</td>
-            <td className="w-1/5 text-center">
+            <td className="w-32 text-center">{formattedDate}</td>
+            <td className="w-44 text-center">
               <span className="mr-1">
                 {transaction.category === "Salary" && (
                   <FontAwesomeIcon
@@ -77,7 +77,7 @@ function TransactionItem(props: any) {
               </span>
               {transaction.category}
             </td>
-            <td className="w-1/5 text-center">
+            <td className="w-20 text-center">
               <p
                 className={
                   transaction.type === "Income"
@@ -89,8 +89,8 @@ function TransactionItem(props: any) {
                 {transaction.amount}
               </p>
             </td>
-            <td className="w-1/5 text-center">{transaction.note}</td>
-            <td className=" text-center">
+            <td className="w-32 text-center">{transaction.note}</td>
+            <td className="text-center">
               <Link to={"/transaction/" + transaction._id}>
                 <FontAwesomeIcon icon={faPencil} style={{ color: "#0c0d0d" }} />
               </Link>

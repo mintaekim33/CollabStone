@@ -22,6 +22,5 @@ export async function updateTransaction(editedFormData: any, id: string) {
 
 export async function deleteTransaction(id: string) {
     const data = await transactionsAPI.deleteTransaction(id);
-    console.log("delete from service")
     return data;
 }

@@ -1,4 +1,5 @@
 const BASE_URL = "https://dollaradar-webservice.onrender.com/transactions";
+// const BASE_URL = "http://localhost:3000/transactions";
 
 export async function createTransaction(transactionData: any) {
     const createURL = BASE_URL + '/create';
@@ -35,15 +36,12 @@ export async function getTransactions() {
             },
         })
         if (res.ok) {
-            // console.log("res - successfully called get endpoint : ", res)
             return await res.json();
         } else {
-            //   console.log("res - failed to call get endpoint : ", res)
             const errorData = await res.text();
             throw new Error(errorData);
           }
     } catch (error) {
-        console.log("error getting transaction: ", error)
         console.error("Error getting transaction: ", error);
         throw error;
     }}
@@ -59,7 +57,6 @@ export async function getTransaction(id: string) {
             },
         })
         if (res.ok) {
-            // console.log("data read successfully! ", res)
             return await res.json();
         } else {
             console.error("failed to read data ", res)
@@ -67,7 +64,6 @@ export async function getTransaction(id: string) {
             throw new Error(errorData);
           }
     } catch (error) {
-        console.log("error getting transaction: ", error)
         console.error("Error getting transaction: ", error);
         throw error;
     }
@@ -85,7 +81,6 @@ export async function editTransaction(editedFormData: any, id: string) {
             body: JSON.stringify(editedFormData)
         })
         if (res.ok) {
-            console.log("data updated successfully! ", res)
             return await res.json();
         } else {
               console.error("data failed to update ", res)
@@ -93,7 +88,6 @@ export async function editTransaction(editedFormData: any, id: string) {
             // throw new Error(errorData);
           }
     } catch (error) {
-        console.log("error updating transaction: ", error)
         console.error("Error updating transaction: ", error);
         throw error;
     }
@@ -109,13 +103,11 @@ export async function deleteTransaction(id: string) {
             },
         })
         if (res.ok) {
-            console.log("data delete successfully! ", res)
             return await res.json();
         } else {
               console.error("data failed to delete ", res)
           }
     } catch (error) {
-        console.log("error deleting transaction: ", error)
         console.error("Error deleting transaction: ", error);
         throw error;
     }
