@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/users";
+const BASE_URL = "https://dollaradar-webservice.onrender.com/users";
 
 export async function signUp(userData: any) {
     // Fetch uses an options object as a second arg to make requests
