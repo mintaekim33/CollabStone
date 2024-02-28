@@ -1,7 +1,5 @@
 import Modal from "react-bootstrap/Modal";
 import { submitTransaction } from "../service/transactions";
-import { getUser } from "../service/users";
-import { useEffect } from "react";
 
 function AddTransaction(props: any) {
   const {
@@ -9,8 +7,8 @@ function AddTransaction(props: any) {
     setFormData,
     transactions,
     setTransactions,
-    // events,
-    // setEvents,
+    formattedDate,
+    userId,
     ...rest
   } = props;
 
@@ -33,38 +31,17 @@ function AddTransaction(props: any) {
     }
     // close modal
     rest.onHide();
-    // clear amount
+    // clear form
     setFormData({
-      ...formData,
+      ...formData, // consider changing type and category back to default
       amount: 0,
     });
-
-    // Add transaction record
-    // const fullCalendarApi = rest.calendar.current.getApi();
-    // const transaction = {
-    //   title: formData.amount,
-    //   start: formData.date, // Set the start time of the event
-    //   allDay: true, // Set to true if the event lasts all day
-    // };
-    // fullCalendarApi.addEvent(transaction); // Add the event to the calendar
-
-    // // Update events state using the callback version of setEvents
-    // setEvents((prevEvents: any) => {
-    //   const updatedEvents = [...prevEvents, transaction];
-    //   // Save updated events to localStorage
-    //   localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
-    //   // console.log("Updated events : ", updatedEvents);
-    //   return updatedEvents;
-    // });
-
-    // console.log("FORM DATA: ", formData);
-    // console.log("transaction DATA: ", transaction);
   }
 
   return (
     <Modal
       {...rest}
-      size="lg"
+      size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
@@ -120,10 +97,21 @@ function AddTransaction(props: any) {
               console.log("category: ", formData.category);
             }}
           >
-            <option>Food</option>
-            <option>Shopping</option>
-            <option>Entertainment</option>
-            <option>Investment</option>
+            {formData.type === "Income" ? (
+              <>
+                <option>Salary</option>
+                <option>Investment</option>
+                <option>Part-Time</option>
+              </>
+            ) : (
+              <>
+                <option>Food</option>
+                <option>Shopping</option>
+                <option>Entertainment</option>
+                <option>Transport</option>
+                <option>Utilities</option>
+              </>
+            )}
           </select>
 
           <label className="text-gray-700">Amount</label>
@@ -161,15 +149,11 @@ function AddTransaction(props: any) {
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             type="submit"
-            // onClick={props.onHide}
           >
-            Submit
+            Add
           </button>
         </form>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer> */}
     </Modal>
   );
 }

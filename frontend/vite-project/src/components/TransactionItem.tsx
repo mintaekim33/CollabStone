@@ -1,39 +1,104 @@
 import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBagShopping,
+  faBus,
+  faClock,
+  faCreditCard,
+  faPencil,
+  faSackDollar,
+  faTicket,
+  faUtensils,
+  faWifi,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TransactionItem(props: any) {
   const { transaction } = props;
 
+  const formattedDate = new Date(
+    transaction.date?.split("T")[0]
+  ).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
   return (
-    <>
-      <Container className="mx-40 my-10 p-10  gap-3 bg-gray-100 p-4 rounded-md">
-        <Row
-          className={`mx-20 my-10 p-10 flex gap-3 ${
-            transaction.type == "Income" ? "bg-green-100" : "bg-red-100"
-          } p-4 rounded-md`}
-        >
-          <Col className="w-1/4">{transaction.date?.split("T")[0]}</Col>
-          <Col className="w-1/4">{transaction.type}</Col>
-          <Col className="w-1/4">{transaction.category}</Col>
-          <Col className="w-1/4">${transaction.amount}</Col>
-          <Col>
-            <Link to={"/transaction/" + transaction._id}>
-              <Button
-                variant="primary"
-                type="submit"
-                value="Submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+    <div className="">
+      <Table striped bordered hover className="m-0">
+        <tbody>
+          <tr>
+            <td className="w-1/5 text-center">{formattedDate}</td>
+            <td className="w-1/5 text-center">
+              <span className="mr-1">
+                {transaction.category === "Salary" && (
+                  <FontAwesomeIcon
+                    icon={faCreditCard}
+                    style={{ color: "#9a0e23" }}
+                  />
+                )}
+                {transaction.category === "Investment" && (
+                  <FontAwesomeIcon
+                    icon={faSackDollar}
+                    style={{ color: "#307e66" }}
+                  />
+                )}
+                {transaction.category === "Part-Time" && (
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    style={{ color: "#6d84ab" }}
+                  />
+                )}
+                {transaction.category === "Food" && (
+                  <FontAwesomeIcon
+                    icon={faUtensils}
+                    style={{ color: "#acaaaa" }}
+                  />
+                )}
+                {transaction.category === "Entertainment" && (
+                  <FontAwesomeIcon
+                    icon={faTicket}
+                    style={{ color: "#FFD43B" }}
+                  />
+                )}
+                {transaction.category === "Shopping" && (
+                  <FontAwesomeIcon
+                    icon={faBagShopping}
+                    style={{ color: "d86518" }}
+                  />
+                )}
+                {transaction.category === "Transport" && (
+                  <FontAwesomeIcon icon={faBus} style={{ color: "#134aaa" }} />
+                )}
+                {transaction.category === "Utilities" && (
+                  <FontAwesomeIcon icon={faWifi} style={{ color: "#60a9a8" }} />
+                )}
+              </span>
+              {transaction.category}
+            </td>
+            <td className="w-1/5 text-center">
+              <p
+                className={
+                  transaction.type === "Income"
+                    ? "text-green-600"
+                    : "text-red-600 custom"
+                }
               >
-                Edit a transaction
-              </Button>
-            </Link>
-          </Col>
-        </Row>
-      </Container>
-    </>
+                <span>{transaction.type === "Income" ? "+" : "-"}</span>$
+                {transaction.amount}
+              </p>
+            </td>
+            <td className="w-1/5 text-center">{transaction.note}</td>
+            <td className=" text-center">
+              <Link to={"/transaction/" + transaction._id}>
+                <FontAwesomeIcon icon={faPencil} style={{ color: "#0c0d0d" }} />
+              </Link>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   );
 }
 

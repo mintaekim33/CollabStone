@@ -26,7 +26,4 @@ router.put(
 // DELETE /transactions/delete/:id delete a transaction
 router.delete("/delete/:id", transactionsController.deleteTransaction);
 
-// clear DB
-router.delete("/deleteAll", transactionsController.deleteAll);
-
 module.exports = router;

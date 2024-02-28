@@ -22,7 +22,14 @@ const TransactionSchema = new Schema({
   category: {
     type: String,
     required: true,
-    default: "Food",
+    default: function () {
+      // Conditional default based on the value of the 'type' field
+      if (this.type === "Income") {
+        return "Salary";
+      } else {
+        return "Food";
+      }
+    },
   },
   amount: {
     type: Number,

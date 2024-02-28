@@ -26,8 +26,7 @@ export async function createTransaction(transactionData: any) {
 export async function getTransactions() {
     const createURL = BASE_URL + '/getAll';
     const token = localStorage.getItem('token'); 
-    console.log("get transactions  tokeN : ", token)
-    try {
+    if (token) {try {
         const res = await fetch(createURL, {
             method: "GET",
             headers: {
@@ -47,7 +46,7 @@ export async function getTransactions() {
         console.log("error getting transaction: ", error)
         console.error("Error getting transaction: ", error);
         throw error;
-    }
+    }}
 }
 
 export async function getTransaction(id: string) {

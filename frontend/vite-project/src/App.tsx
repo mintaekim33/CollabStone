@@ -11,6 +11,7 @@ import Auth from "./components/Auth";
 import Menubar from "./components/Menubar";
 import { getToken } from "./util/security";
 import Landing from "./components/Landing";
+import Dashboard from "./components/Dashboard";
 
 interface Transaction {
   _id?: string;
@@ -39,11 +40,11 @@ function App() {
   // retrieve user id when logged in
   useEffect(() => {
     const token = getToken();
-    const payload = token
-      ? JSON.parse(atob(token.split(".")[1])).payload
-      : null;
-    if (payload && payload._id) {
-      setUserId(payload._id);
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1])).payload;
+      if (payload && payload._id) {
+        setUserId(payload._id);
+      }
     }
   }, [user]);
 
@@ -79,6 +80,10 @@ function App() {
                   // fullCalendarRef={fullCalendarRef}
                 />
               }
+            />
+            <Route
+              path="/dashboard"
+              element={<Dashboard transactions={transactions} />}
             />
             <Route
               path="/transaction/:id"

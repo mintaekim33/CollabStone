@@ -5,6 +5,7 @@ import {
   updateTransaction,
 } from "../service/transactions";
 import { useParams, useNavigate } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
 
 interface FormData {
   date?: string;
@@ -25,6 +26,7 @@ interface Transaction {
 
 function UpdateTransaction(props: any) {
   const { transactions, setTransactions } = props;
+  const [smShow, setSmShow] = useState(false);
   //   const [editFormData, setEditFormData]= useState({
   //     date: '',
   //     category: '',
@@ -110,7 +112,7 @@ function UpdateTransaction(props: any) {
   }
 
   return (
-    <div className="p-20 bg-green-200">
+    <div className="p-20 ">
       <form
         className="flex flex-col w-full max-w-sm mx-auto space-y-4 p-4 bg-white shadow-md rounded-md"
         // onSubmit={handleSubmit}
@@ -153,12 +155,24 @@ function UpdateTransaction(props: any) {
               ...editFormData,
               category: e.target.value,
             });
+            console.log(e.target.value);
           }}
         >
-          <option>Food</option>
-          <option>Shopping</option>
-          <option>Entertainment</option>
-          <option>Investment</option>
+          {editFormData?.type === "Income" ? (
+            <>
+              <option>Salary</option>
+              <option>Investment</option>
+              <option>Part-Time</option>
+            </>
+          ) : (
+            <>
+              <option>Food</option>
+              <option>Shopping</option>
+              <option>Entertainment</option>
+              <option>Transport</option>
+              <option>Utilities</option>
+            </>
+          )}
         </select>
 
         <label className="text-gray-700">Amount</label>
@@ -192,20 +206,42 @@ function UpdateTransaction(props: any) {
             });
           }}
         />
-        <div className="flex">
-          <button
+        <div className="flex space-x-4">
+          <Button
             className="basis-1/2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             // type="submit"
             onClick={handleSubmit}
           >
             Edit
-          </button>
-          <button
-            className="basis-1/2 bg-blue-300 text-white rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-500"
-            onClick={handleDelete}
+          </Button>
+          <Button
+            className="basis-1/2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+            onClick={() => setSmShow(true)}
+            // className="me-2"
           >
             Delete
-          </button>
+          </Button>
+          <Modal
+            size="sm"
+            show={smShow}
+            onHide={() => setSmShow(false)}
+            aria-labelledby="example-modal-sizes-title-sm"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-modal-sizes-title-sm">
+                Confirm Delete?
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <button
+                className="basis-1/2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </Modal.Body>
+          </Modal>
         </div>
       </form>
     </div>

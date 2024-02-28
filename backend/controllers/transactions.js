@@ -6,7 +6,6 @@ module.exports = {
   getTransaction,
   editTransaction,
   deleteTransaction,
-  deleteAll,
 };
 
 async function createTransaction(req, res) {
@@ -31,9 +30,9 @@ async function getTransactions(req, res) {
     console.log("GET TRANS req body", req.body);
     console.log("res body", res.body);
 
-    if (!req.user || !req.user._id) {
-      return res.json({ message: "log in first" });
-    }
+    // if (!req.user || !req.user._id) {
+    //   return res.json({ message: "log in first" });
+    // }
 
     const data = await modelTransactions.getTransactions();
     // if (req.user._id !== )
@@ -99,15 +98,6 @@ async function deleteTransaction(req, res) {
     const deletedTransaction = await modelTransactions.deleteTransaction(id);
     // console.log("RESPONSE: ", deletedTransaction);
     res.json(deletedTransaction);
-  } catch (err) {
-    res.status(500).json({ errorMsg: err.message });
-  }
-}
-
-async function deleteAll(req, res) {
-  try {
-    const data = await modelTransactions.deleteAll();
-    res.json(data);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }
