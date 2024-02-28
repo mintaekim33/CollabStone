@@ -12,7 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { Card } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 
 function Dashboard(props: any) {
   const { transactions } = props;
@@ -128,15 +128,34 @@ function Dashboard(props: any) {
 
   return (
     <>
-      <Container className="outline flex justify-center items-center h-20">
-        <Row className="outline w-3/4 h-1/2">
-          <Col>Total Expenses: {totalExpense}</Col>
-          <Col>Total Income: {totalIncome}</Col>
-          <Col>Balance: {balance} </Col>
-        </Row>
-      </Container>
+      <div className="flex justify-center">
+        <Card
+          className="w-75 mt-10 flex justify-center items-center"
+          style={{ height: "50px" }}
+        >
+          <Row className=" w-3/4 h-1/2">
+            <Col>Total Expenses: {totalExpense}</Col>
+            <Col>Total Income: {totalIncome}</Col>
+            <Col>Balance: {balance} </Col>
+          </Row>
+        </Card>
+      </div>
+
+      <div className="flex justify-center">
+        <Card className="w-50 mt-10">
+          <Card.Body>
+            <Card.Title>Overview</Card.Title>
+            <ListGroup variant="flush">
+              <ListGroup.Item>Total Expenses: {totalExpense}</ListGroup.Item>
+              <ListGroup.Item>Total Income: {totalIncome}</ListGroup.Item>
+              <ListGroup.Item>Balance: {balance}</ListGroup.Item>
+            </ListGroup>
+          </Card.Body>
+        </Card>
+      </div>
+
       <div className="flex justify-center pt-8">
-        <div className="outline" style={{ width: 500 }}>
+        <Card className="" style={{ width: 500 }}>
           <h3 className="flex justify-center">Expense by Category</h3>
           <PieChart width={500} height={500}>
             <Pie
@@ -156,8 +175,8 @@ function Dashboard(props: any) {
               ))}
             </Pie>
           </PieChart>
-        </div>
-        <div className="outline" style={{ width: 500 }}>
+        </Card>
+        <Card className="" style={{ width: 500 }}>
           <h3 className="flex justify-center">Income by Category</h3>
           <PieChart width={500} height={500}>
             <Pie
@@ -177,7 +196,7 @@ function Dashboard(props: any) {
               ))}
             </Pie>
           </PieChart>
-        </div>
+        </Card>
       </div>
 
       {/* bar chart of expenses and income every month */}
