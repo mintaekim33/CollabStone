@@ -115,7 +115,7 @@ function MainPage(props: any) {
           userId={userId}
         />
 
-        <div className="flex justify-center">
+        <div className="flex justify-center pt-12">
           <div className="outline flex flex-col items-center">
             <div className="flex justify-around items-center w-full">
               <h2 className="text-2xl font-semibold">My transactions</h2>
@@ -128,7 +128,7 @@ function MainPage(props: any) {
                 Add
               </button>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 w-full">
               <TransactionTable
                 selectedMonth={selectedMonth}
                 filterTransactionsByMonth={filterTransactionsByMonth}

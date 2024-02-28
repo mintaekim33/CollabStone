@@ -23,7 +23,7 @@ function TransactionItem(props: any) {
 
   return (
     <>
-      <Table striped bordered hover className="m-0 custom-table">
+      <Table striped bordered hover className="m-0">
         <tbody>
           <tr>
             <td className="w-3/10">{formattedDate}</td>

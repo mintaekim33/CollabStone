@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Sector, Cell } from "recharts";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { Card } from "react-bootstrap";
 
 function Dashboard(props: any) {
   const { transactions } = props;
@@ -75,6 +85,47 @@ function Dashboard(props: any) {
   );
   const balance = totalIncome - totalExpense;
 
+  interface MonthlyTotals {
+    [key: number]: {
+      monthName: string;
+      expenses: number;
+      income: number;
+    };
+  }
+
+  // Function to calculate total expenses and income for each month
+  const calculateMonthlyTotals = () => {
+    const monthlyTotals: MonthlyTotals = {};
+
+    // Loop through transactions to calculate totals for each month
+    transactions.forEach((transaction: any) => {
+      const date = new Date(transaction.date);
+      const month = date.getMonth() + 1; // Months are 0-indexed, so add 1
+
+      // Initialize totals object for the month if it doesn't exist
+      if (!monthlyTotals[month]) {
+        monthlyTotals[month] = {
+          monthName: date.toLocaleString("default", { month: "short" }),
+          expenses: 0,
+          income: 0,
+        };
+      }
+
+      // Update totals based on transaction type (assuming 'expense' and 'income' fields)
+      if (transaction.type === "Expense") {
+        monthlyTotals[month].expenses += transaction.amount;
+      } else if (transaction.type === "Income") {
+        monthlyTotals[month].income += transaction.amount;
+      }
+    });
+
+    // Convert object into array of objects for each month
+    return Object.values(monthlyTotals);
+  };
+
+  // Calculate monthly totals
+  const monthlyTotals = calculateMonthlyTotals();
+
   return (
     <>
       <Container className="outline flex justify-center items-center h-20">
@@ -130,6 +181,20 @@ function Dashboard(props: any) {
       </div>
 
       {/* bar chart of expenses and income every month */}
+      <div className="flex justify-center my-20">
+        <Card className="w-1/2 flex justify-center items-center">
+          <h3 className="flex justify-center">Monthly Data</h3>
+          <BarChart width={500} height={300} data={monthlyTotals}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="monthName" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="expenses" fill="#c7231e" name="Expenses" />
+            <Bar dataKey="income" fill="#54ad3b" name="Income" />
+          </BarChart>
+        </Card>
+      </div>
     </>
   );
 }
