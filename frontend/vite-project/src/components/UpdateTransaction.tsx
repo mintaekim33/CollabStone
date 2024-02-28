@@ -42,7 +42,6 @@ function UpdateTransaction(props: any) {
   useEffect(() => {
     const fetchData = async (id: string) => {
       const transaction = await fetchTransactionData(id);
-      console.log("transaction data: ", transaction);
       setSelectedTransaction(transaction);
       setEditFormData({
         date: transaction.date,
@@ -72,22 +71,11 @@ function UpdateTransaction(props: any) {
           return transaction;
         })
       );
-
-      //   console.log("form response: ", response);
     } catch (e) {
       console.log("Error submitting", e);
     }
     // go back to main page
     navigate("/");
-
-    // update the calendar events
-    //     const updatedEvents = events.map((event: { id: any; }) => {
-    //         if (event.id === updatedEvent.id) {
-    //           return { ...event, ...updatedEvent }; // Update only the modified properties
-    //         }
-    //         return event;
-    //       });
-    //       setEvents(updatedEvents);
   }
 
   async function handleDelete(e: { preventDefault: () => void }) {
@@ -95,7 +83,6 @@ function UpdateTransaction(props: any) {
 
     try {
       const transactionId = selectedTransaction?._id;
-      console.log("T ID: ", transactionId);
       const response = await deleteTransaction(transactionId!);
 
       // update frontend UI
@@ -155,7 +142,6 @@ function UpdateTransaction(props: any) {
               ...editFormData,
               category: e.target.value,
             });
-            console.log(e.target.value);
           }}
         >
           {editFormData?.type === "Income" ? (
