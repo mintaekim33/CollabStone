@@ -4,6 +4,8 @@ import { Button, Container } from "react-bootstrap";
 import AddTransaction from "./AddTransaction";
 import TransactionItem from "./TransactionItem";
 import TransactionTable from "./TransactionTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 // define structure for FormData type
 interface FormData {
@@ -115,36 +117,63 @@ function MainPage(props: any) {
           userId={userId}
         />
 
-        <div className="flex justify-center pt-12">
-          <div className="outline flex flex-col items-center">
-            <div className="flex justify-around items-center w-full">
-              <h2 className="text-2xl font-semibold">My transactions</h2>
-              <button
-                className="px-2 py-1 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600"
+        <div className="flex justify-center pt-12 ">
+          <div className="flex flex-col w-full items-center ">
+            <div className="flex items-center justify-between space-x-4 mb-4">
+              <h2 className=" flex  justify-center  text-2xl font-semibold">
+                My transactions
+              </h2>
+              {/* <button
+                // className="px-2 py-1 text-white font-semibold rounded-lg shadow-md"
+                className=" bg-red-100 border border-gray-700	hover:border-black cursor-pointer p-1 rounded-full"
+              > */}
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="  bg-blue-100 border border-gray-900	hover:bg-blue-300 cursor-pointer p-1 rounded-full"
                 onClick={() => {
                   setAddModalShow(true);
                 }}
+              />
+              {/* </button> */}
+              {/* <div className="flex justify-center items-center space-x-4"> */}
+              <button
+                className=" cursor-pointer block border border-gray-500 rounded-md px-4 py-2"
+                onClick={toggleSortOrder}
               >
-                Add
+                {sortOrder === "asc" ? "Sort by latest" : "Sort by oldest"}
               </button>
+              <select
+                className="  block border border-gray-300 rounded-md px-4 py-2"
+                onChange={handleMonthChange}
+                value={selectedMonth !== null ? selectedMonth.toString() : ""}
+              >
+                <option value="">All months</option>
+                {uniqueMonths.map((month: number) => (
+                  <option key={month} value={month}>
+                    {getMonthName(month)}
+                  </option>
+                ))}
+              </select>
+              {/* </div> */}
             </div>
-            <div className="mt-2 w-full">
+            <div className=" w-full flex justify-center">
               <TransactionTable
+                className="w-full"
                 selectedMonth={selectedMonth}
                 filterTransactionsByMonth={filterTransactionsByMonth}
                 transactions={transactions}
               />
             </div>
           </div>
-          <div className="outline flex flex-col justify-center items-center ml-4">
+          {/* <div className="outline outline-sky-200 flex flex-col justify-center items-center ml-4">
             <div
-              className=" cursor-pointer block border border-gray-300 rounded-md px-4 py-2 mb-2"
+              className=" outline outline-pink-500 cursor-pointer block border border-gray-300 rounded-md px-4 py-2 mb-2"
               onClick={toggleSortOrder}
             >
               {sortOrder === "asc" ? "Sort by latest" : "Sort by oldest"}
             </div>
             <select
-              className="block border border-gray-300 rounded-md px-4 py-2"
+              className="outline outline-fuchsia-500 block border border-gray-300 rounded-md px-4 py-2"
               onChange={handleMonthChange}
               value={selectedMonth !== null ? selectedMonth.toString() : ""}
             >
@@ -155,7 +184,7 @@ function MainPage(props: any) {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
       </DataContext.Provider>
     </div>

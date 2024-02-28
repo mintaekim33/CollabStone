@@ -1,7 +1,5 @@
 import Modal from "react-bootstrap/Modal";
 import { submitTransaction } from "../service/transactions";
-import { getUser } from "../service/users";
-import { useEffect } from "react";
 
 function AddTransaction(props: any) {
   const {
@@ -11,8 +9,6 @@ function AddTransaction(props: any) {
     setTransactions,
     formattedDate,
     userId,
-    // events,
-    // setEvents,
     ...rest
   } = props;
 
@@ -40,36 +36,6 @@ function AddTransaction(props: any) {
       ...formData, // consider changing type and category back to default
       amount: 0,
     });
-
-    // setFormData({
-    //   userId: userId,
-    //   date: formattedDate, // Assuming formattedDate is the default date
-    //   type: "", // Set other form fields to their default values
-    //   category: "",
-    //   amount: 0,
-    //   note: "",
-    // });
-
-    // Add transaction record
-    // const fullCalendarApi = rest.calendar.current.getApi();
-    // const transaction = {
-    //   title: formData.amount,
-    //   start: formData.date, // Set the start time of the event
-    //   allDay: true, // Set to true if the event lasts all day
-    // };
-    // fullCalendarApi.addEvent(transaction); // Add the event to the calendar
-
-    // // Update events state using the callback version of setEvents
-    // setEvents((prevEvents: any) => {
-    //   const updatedEvents = [...prevEvents, transaction];
-    //   // Save updated events to localStorage
-    //   localStorage.setItem("calendarEvents", JSON.stringify(updatedEvents));
-    //   // console.log("Updated events : ", updatedEvents);
-    //   return updatedEvents;
-    // });
-
-    // console.log("FORM DATA: ", formData);
-    // console.log("transaction DATA: ", transaction);
   }
 
   return (
@@ -180,15 +146,11 @@ function AddTransaction(props: any) {
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
             type="submit"
-            // onClick={props.onHide}
           >
             Add
           </button>
         </form>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer> */}
     </Modal>
   );
 }

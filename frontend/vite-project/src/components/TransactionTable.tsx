@@ -4,7 +4,7 @@ function TransactionTable(props: any) {
   const { selectedMonth, filterTransactionsByMonth, transactions } = props;
 
   return (
-    <div>
+    <div className=" w-1/2 ">
       {selectedMonth !== null
         ? filterTransactionsByMonth(transactions, selectedMonth).map(
             (transaction: { _id: any }) => (
