@@ -128,7 +128,7 @@ function Dashboard(props: any) {
 
   return (
     <>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <Card
           className="w-75 mt-10 flex justify-center items-center"
           style={{ height: "50px" }}
@@ -139,7 +139,7 @@ function Dashboard(props: any) {
             <Col>Balance: {balance} </Col>
           </Row>
         </Card>
-      </div>
+      </div> */}
 
       <div className="flex justify-center">
         <Card className="w-50 mt-10">

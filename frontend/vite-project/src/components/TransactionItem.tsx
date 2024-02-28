@@ -3,11 +3,14 @@ import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBagShopping,
+  faBus,
+  faClock,
   faCreditCard,
   faPencil,
   faSackDollar,
   faTicket,
   faUtensils,
+  faWifi,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TransactionItem(props: any) {
@@ -41,6 +44,12 @@ function TransactionItem(props: any) {
                     style={{ color: "#307e66" }}
                   />
                 )}
+                {transaction.category === "Part-Time" && (
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    style={{ color: "#6d84ab" }}
+                  />
+                )}
                 {transaction.category === "Food" && (
                   <FontAwesomeIcon
                     icon={faUtensils}
@@ -58,6 +67,12 @@ function TransactionItem(props: any) {
                     icon={faBagShopping}
                     style={{ color: "d86518" }}
                   />
+                )}
+                {transaction.category === "Transport" && (
+                  <FontAwesomeIcon icon={faBus} style={{ color: "#134aaa" }} />
+                )}
+                {transaction.category === "Utilities" && (
+                  <FontAwesomeIcon icon={faWifi} style={{ color: "#60a9a8" }} />
                 )}
               </span>
               {transaction.category}

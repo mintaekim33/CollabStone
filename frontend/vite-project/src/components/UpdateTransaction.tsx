@@ -162,12 +162,15 @@ function UpdateTransaction(props: any) {
             <>
               <option>Salary</option>
               <option>Investment</option>
+              <option>Part-Time</option>
             </>
           ) : (
             <>
               <option>Food</option>
               <option>Shopping</option>
               <option>Entertainment</option>
+              <option>Transport</option>
+              <option>Utilities</option>
             </>
           )}
         </select>
