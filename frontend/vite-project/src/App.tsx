@@ -1,13 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { useEffect, useState, useRef, createContext } from "react";
+import { useEffect, useState, createContext } from "react";
 import { fetchTransactionsData } from "./service/transactions";
 import UpdateTransaction from "./components/UpdateTransaction";
 import MainPage from "./components/MainPage";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import { getUser } from "./service/users";
-import Auth from "./components/Auth";
 import Menubar from "./components/Menubar";
 import { getToken } from "./util/security";
 import Landing from "./components/Landing";
@@ -22,18 +21,11 @@ interface Transaction {
   note?: string;
 }
 
-// interface CalendarEvent {
-//   title: string;
-//   start: string;
-//   allDay: boolean;
-// }
-
 // create context for transaction data
 export const DataContext = createContext<any>(null);
 
 function App() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]); // backend data
-  // const [events, setEvents] = useState<CalendarEvent[]>([]); // frontend data
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [user, setUser] = useState(getUser());
   const [userId, setUserId] = useState("");
 
@@ -47,11 +39,6 @@ function App() {
       }
     }
   }, [user]);
-
-  // const fullCalendarRef = useRef(null);
-
-  // for rendering transactions data from DB
-  // if the transaction is edited/deleted, need API call and update events state together
 
   // fetch user-specific transaction items when logging in as a different user
   useEffect(() => {
@@ -75,9 +62,6 @@ function App() {
                   transactions={transactions}
                   setTransactions={setTransactions}
                   userId={userId}
-                  // events={events}
-                  // setEvents={setEvents}
-                  // fullCalendarRef={fullCalendarRef}
                 />
               }
             />
@@ -91,9 +75,6 @@ function App() {
                 <UpdateTransaction
                   transactions={transactions}
                   setTransactions={setTransactions}
-                  // events={events}
-                  // setEvents={setEvents}
-                  // calendar={fullCalendarRef}
                 />
               }
             />

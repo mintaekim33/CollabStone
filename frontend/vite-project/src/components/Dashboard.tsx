@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Sector, Cell } from "recharts";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { useEffect, useState } from "react";
+import { PieChart, Pie, Cell } from "recharts";
 import {
   BarChart,
   Bar,
@@ -128,19 +125,6 @@ function Dashboard(props: any) {
 
   return (
     <>
-      {/* <div className="flex justify-center">
-        <Card
-          className="w-75 mt-10 flex justify-center items-center"
-          style={{ height: "50px" }}
-        >
-          <Row className=" w-3/4 h-1/2">
-            <Col>Total Expenses: {totalExpense}</Col>
-            <Col>Total Income: {totalIncome}</Col>
-            <Col>Balance: {balance} </Col>
-          </Row>
-        </Card>
-      </div> */}
-
       <div className="flex justify-center">
         <Card className="w-50 mt-10">
           <Card.Body>
@@ -167,7 +151,7 @@ function Dashboard(props: any) {
               fill="#8884d8"
               label={({ category, amount }) => `${category}: $${amount}`}
             >
-              {expenseData.map((entry, index) => (
+              {expenseData.map((index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
@@ -188,7 +172,7 @@ function Dashboard(props: any) {
               fill="#8884d8"
               label={({ category, amount }) => `${category}: $${amount}`}
             >
-              {incomeData.map((entry, index) => (
+              {incomeData.map((index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}

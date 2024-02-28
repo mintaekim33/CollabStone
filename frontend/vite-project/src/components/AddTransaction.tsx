@@ -13,9 +13,7 @@ function AddTransaction(props: any) {
   } = props;
 
   async function handleSubmit(e: { preventDefault: () => void }) {
-    console.log("form", formData);
     e.preventDefault();
-    console.log("ADD BUTTON");
 
     try {
       const response = await submitTransaction(formData);
@@ -24,8 +22,6 @@ function AddTransaction(props: any) {
         ...prevTransactions,
         response,
       ]);
-
-      console.log("form response: ", response);
     } catch (e) {
       console.log("Error submitting", e);
     }
@@ -94,7 +90,6 @@ function AddTransaction(props: any) {
                 ...formData,
                 category: e.target.value,
               });
-              console.log("category: ", formData.category);
             }}
           >
             {formData.type === "Income" ? (
