@@ -30,10 +30,6 @@ const userSchema = new Schema(
     expire_at: {
       type: Number,
     },
-    is_guest: {
-      type: Boolean,
-      default: false,
-    },
   },
   {
     timestamps: true,

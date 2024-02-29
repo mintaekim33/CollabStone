@@ -11,8 +11,6 @@ const TransactionSchema = new Schema({
   date: {
     type: Date,
     required: true,
-    // default: new Date(), // current date
-    // ISODate("2024-02-28T00:00:00Z"),
   },
   type: {
     type: String,
