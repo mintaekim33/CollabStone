@@ -11,7 +11,7 @@ function createJWT(payload) {
     // data payload
     { payload },
     process.env.SECRET,
-    { expiresIn: "6000000s" }
+    { expiresIn: "600s" }
   );
 }
 
