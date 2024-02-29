@@ -150,7 +150,7 @@ function Dashboard(props: any) {
               outerRadius={80}
               label={({ category, amount }) => `${category}: $${amount}`}
             >
-              {expenseData.map((entry, index) => (
+              {expenseData.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
@@ -170,7 +170,7 @@ function Dashboard(props: any) {
               outerRadius={80}
               label={({ category, amount }) => `${category}: $${amount}`}
             >
-              {incomeData.map((entry, index) => (
+              {incomeData.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
