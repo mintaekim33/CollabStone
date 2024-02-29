@@ -28,7 +28,7 @@ Deployment Link : https://dollaradar.onrender.com/
 Trello : https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar
 
 # Challeges
-Managing states
+Managing states  
 Authentication
 
 # Next Steps
@@ -37,4 +37,4 @@ Authentication
 
 # Resources
 [Font Awesome](https://fontawesome.com/)  
-[Icons8](https://icons8.com/icons}
+[Icons8](https://icons8.com/icons)
