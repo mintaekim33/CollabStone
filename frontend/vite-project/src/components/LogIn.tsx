@@ -28,14 +28,8 @@ function LogIn(props: any) {
     try {
       evt.preventDefault();
 
-      // console.log("form state: ", formState);
       const formData = { ...formState };
-      // console.log("form data: ", formData);
-
-      // console.log("form data before get login details", formData);
       const loginDetails = await getLoginDetails(formData.email); // retrieve name, salt, iterations
-      console.log("Login details retrieved: ", loginDetails);
-      console.log("form data after get login details", formData);
       // check if the form is filled and there is no login details retrieved
       if (Object.keys(formData).length !== 0 && loginDetails === null) {
         setLogInMessage("No such user registered");
@@ -48,12 +42,10 @@ function LogIn(props: any) {
           loginDetails.salt,
           loginDetails.iterations
         );
-        // console.log("Log In Hashed Password: ", hashedPassword);
         formData.password = hashedPassword;
 
         // actually log in
         const token = await loginUser(formData);
-        console.log("token", token);
         if (token.success === false) {
           setLogInMessage(token.error);
         } else {
@@ -67,7 +59,7 @@ function LogIn(props: any) {
 
       // // retrieve user id from token
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 

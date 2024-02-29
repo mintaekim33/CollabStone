@@ -23,13 +23,13 @@ function AddTransaction(props: any) {
         response,
       ]);
     } catch (e) {
-      console.log("Error submitting", e);
+      console.error("Error submitting", e);
     }
     // close modal
     rest.onHide();
     // clear form
     setFormData({
-      ...formData, // consider changing type and category back to default
+      ...formData,
       amount: 0,
     });
   }

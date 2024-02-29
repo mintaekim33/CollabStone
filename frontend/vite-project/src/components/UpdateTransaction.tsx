@@ -72,7 +72,7 @@ function UpdateTransaction(props: any) {
         })
       );
     } catch (e) {
-      console.log("Error submitting", e);
+      console.error("Error submitting", e);
     }
     // go back to main page
     navigate("/");
@@ -92,7 +92,7 @@ function UpdateTransaction(props: any) {
         )
       );
     } catch (e) {
-      console.log("Error submitting", e);
+      console.error("Error submitting", e);
     }
     // return to main page
     navigate("/");

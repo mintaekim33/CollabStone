@@ -11,12 +11,6 @@ interface FormState {
 }
 
 function SignUp() {
-  //   const [formState, setFormState] = useState({
-  //     name: "",
-  //     email: "",
-  //     password: "",
-  //     confirmPassword: "",
-  //   });
   const [formState, setFormState] = useState<FormState>({});
   const [signedUp, setSignedUp] = useState(false);
   const [signUpMessage, setSignUpMessage] = useState();
@@ -37,29 +31,20 @@ function SignUp() {
       currForm.salt = hash.salt;
       currForm.iterations = hash.iterations;
     }
-    // console.log("Current form: ", currForm);
-    // console.log("Sign Up Hashed Password: ", currForm.password);
   }
 
   async function handleSubmit(evt: any) {
     try {
       evt.preventDefault();
-      // We don't want to send the 'error' or 'confirm' property,
-      //  so let's make a copy of the state object, then delete them
       hashPassword();
       const formData = { ...formState };
-      // console.log("Form formData: ", formData);
-      // console.log("Form State: ", formState);
-      // delete formData.error;
-      // delete formData.confirm;
       const user = await signUp(formData);
-      console.log("user - sign up: ", user);
       setSignUpMessage(user); // display message
       setFormState({}); // clear the form
       setSignedUp(true); // toggle log in link
       // OR navigate to login page
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
