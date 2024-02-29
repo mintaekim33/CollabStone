@@ -30,7 +30,12 @@ function AddTransaction(props: any) {
     // clear form
     setFormData({
       ...formData,
+
+      date: formattedDate,
+      type: "",
+      category: "",
       amount: 0,
+      note: "",
     });
   }
 
@@ -70,13 +75,18 @@ function AddTransaction(props: any) {
           <select
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={formData.type || ""}
+            required
             onChange={(e) => {
               setFormData({
                 ...formData,
                 type: e.target.value,
+                // category: ""
               });
             }}
           >
+            <option value="" disabled>
+              Select a type
+            </option>
             <option>Expense</option>
             <option>Income</option>
           </select>
@@ -85,6 +95,7 @@ function AddTransaction(props: any) {
           <select
             className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={formData.category || ""}
+            required
             onChange={(e) => {
               setFormData({
                 ...formData,
@@ -94,12 +105,18 @@ function AddTransaction(props: any) {
           >
             {formData.type === "Income" ? (
               <>
+                <option value="" disabled>
+                  Select a category
+                </option>
                 <option>Salary</option>
                 <option>Investment</option>
                 <option>Part-Time</option>
               </>
             ) : (
               <>
+                <option value="" disabled>
+                  Select a category
+                </option>
                 <option>Food</option>
                 <option>Shopping</option>
                 <option>Entertainment</option>

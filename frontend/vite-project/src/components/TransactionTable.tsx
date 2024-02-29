@@ -5,19 +5,29 @@ function TransactionTable(props: any) {
 
   return (
     <div className=" w-1/2 mb-20 ">
-      {selectedMonth !== null
-        ? filterTransactionsByMonth(transactions, selectedMonth).map(
-            (transaction: { _id: any }) => (
-              <TransactionItem
-                key={transaction._id}
-                transaction={transaction}
-              />
-            )
-          )
-        : transactions &&
-          transactions.map((transaction: { _id: any }) => (
-            <TransactionItem key={transaction._id} transaction={transaction} />
-          ))}
+      {transactions?.length === 0 ? (
+        <div className="mt-20 flex justify-center">
+          <p className="text-gray-500">Start adding your transactions!</p>
+        </div>
+      ) : (
+        <>
+          {selectedMonth !== null
+            ? filterTransactionsByMonth(transactions, selectedMonth).map(
+                (transaction: { _id: any }) => (
+                  <TransactionItem
+                    key={transaction._id}
+                    transaction={transaction}
+                  />
+                )
+              )
+            : transactions?.map((transaction: { _id: any }) => (
+                <TransactionItem
+                  key={transaction._id}
+                  transaction={transaction}
+                />
+              ))}
+        </>
+      )}
     </div>
   );
 }

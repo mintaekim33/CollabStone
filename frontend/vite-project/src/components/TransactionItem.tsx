@@ -90,7 +90,7 @@ function TransactionItem(props: any) {
               </p>
             </td>
             <td className="w-32 text-center">{transaction.note}</td>
-            <td className="text-center">
+            <td className="w-16 text-center">
               <Link to={"/transaction/" + transaction._id}>
                 <FontAwesomeIcon icon={faPencil} style={{ color: "#0c0d0d" }} />
               </Link>

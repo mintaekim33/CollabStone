@@ -99,7 +99,11 @@ function SignUp() {
           Sign Up
         </Button>
         {signedUp && (
-          <Form.Text className="text-muted">Back to Log In</Form.Text>
+          <Form.Text className="text-muted">
+            <Link to="/login" className="no-underline text-black">
+              Back to Log In
+            </Link>
+          </Form.Text>
         )}
 
         <div className="flex justify-center mt-8">
