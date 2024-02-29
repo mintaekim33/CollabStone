@@ -24,7 +24,7 @@ Backend: Node.js, Express, MongoDB, CryptoJS
 Project Planning: Trello, Figma, draw.io
 
 # Getting Started
-Deployment Link : https://dollaradar.onrender.com/
+Deployment Link : https://dollaradar.onrender.com/  
 Trello : https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar
 
 # Challeges
@@ -36,5 +36,5 @@ Authentication
 - Pagination of transaction records
 
 # Resources
-[Font Awesome](https://fontawesome.com/)
+[Font Awesome](https://fontawesome.com/)  
 [Icons8](https://icons8.com/icons}
