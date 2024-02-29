@@ -80,7 +80,7 @@ function AddTransaction(props: any) {
               setFormData({
                 ...formData,
                 type: e.target.value,
-                // category: ""
+                category: "",
               });
             }}
           >
