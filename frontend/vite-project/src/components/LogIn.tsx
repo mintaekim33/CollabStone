@@ -64,9 +64,9 @@ function LogIn(props: any) {
   }
 
   return (
-    <Container className=" flex justify-center items-center h-screen">
+    <Container className=" flex justify-center items-center h-screen ">
       <Form
-        className="w-full max-w-md bg-white shadow-md rounded-md p-4 p-sm-3"
+        className=" border border-gray w-full max-w-md bg-white shadow-md rounded-md p-4 p-sm-3"
         onSubmit={handleSubmit}
       >
         <h3 className="flex justify-center my-4">{logInMessage}</h3>
@@ -105,13 +105,15 @@ function LogIn(props: any) {
         >
           Sign In
         </Button>
-        {/* {signedUp && (
-      <Form.Text className="text-muted">Back to Log In</Form.Text>
-    )} */}
-        <Row>Don't have an account?</Row>
-        <Row>
-          <Link to="/signup">Create account</Link>
-        </Row>
+
+        <div className="flex justify-center mt-8">
+          <div className=" flex flex-col justify-center text-center">
+            <Row>Don't have an account?</Row>
+            <Row>
+              <Link to="/signup">Create account</Link>
+            </Row>
+          </div>
+        </div>
       </Form>
     </Container>
   );

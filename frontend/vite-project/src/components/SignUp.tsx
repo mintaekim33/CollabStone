@@ -51,7 +51,7 @@ function SignUp() {
   return (
     <Container className=" flex justify-center items-center h-screen">
       <Form
-        className="w-full max-w-md bg-white shadow-md rounded-md p-4 p-sm-3"
+        className="border border-gray w-full max-w-md bg-white shadow-md rounded-md p-4 p-sm-3"
         onSubmit={handleSubmit}
       >
         <h3 className="flex justify-center my-4">{signUpMessage}</h3>
@@ -101,10 +101,15 @@ function SignUp() {
         {signedUp && (
           <Form.Text className="text-muted">Back to Log In</Form.Text>
         )}
-        <Row>Already have an account?</Row>
-        <Row>
-          <Link to="/login">Sign in</Link>
-        </Row>
+
+        <div className="flex justify-center mt-8">
+          <div className=" flex flex-col justify-center text-center">
+            <Row>Already have an account?</Row>
+            <Row>
+              <Link to="/login">Sign in</Link>
+            </Row>
+          </div>
+        </div>
       </Form>
     </Container>
   );
