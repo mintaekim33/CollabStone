@@ -12,8 +12,8 @@ function createTransaction(param) {
   return daoTransactions.create(param);
 }
 
-function getTransactions() {
-  return daoTransactions.find({});
+function getTransactions(id) {
+  return daoTransactions.find({ userId: id });
 }
 
 function getTransaction(id) {

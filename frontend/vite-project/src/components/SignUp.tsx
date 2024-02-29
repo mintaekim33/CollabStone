@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { hashData } from "../util/security";
@@ -14,6 +14,7 @@ function SignUp() {
   const [formState, setFormState] = useState<FormState>({});
   const [signedUp, setSignedUp] = useState(false);
   const [signUpMessage, setSignUpMessage] = useState();
+  const [loading, setLoading] = useState(false);
 
   function handleChange(evt: any) {
     const { name, value } = evt.target;
@@ -34,17 +35,23 @@ function SignUp() {
   }
 
   async function handleSubmit(evt: any) {
+    evt.preventDefault();
+
+    // Show the spinner while waiting for the request to complete
+    setLoading(true);
+
     try {
-      evt.preventDefault();
       hashPassword();
       const formData = { ...formState };
       const user = await signUp(formData);
       setSignUpMessage(user); // display message
       setFormState({}); // clear the form
       setSignedUp(true); // toggle log in link
-      // OR navigate to login page
+
+      setLoading(false);
     } catch (e) {
-      console.error(e);
+      console.error("Sign up failed: ", e);
+      setLoading(false);
     }
   }
 
@@ -91,13 +98,21 @@ function SignUp() {
           />
         </Form.Group>
 
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Sign Up
-        </Button>
+        {loading ? (
+          <div className="flex justify-center ">
+            <Spinner animation="border" role="status" variant="primary">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <Button
+            variant="primary"
+            type="submit"
+            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            Sign Up
+          </Button>
+        )}
         {signedUp && (
           <Form.Text className="text-muted">
             <Link to="/login" className="no-underline text-black">
