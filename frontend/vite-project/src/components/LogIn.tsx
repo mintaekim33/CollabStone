@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { getLoginDetails, getUser, loginUser } from "../service/users";
-import { hashDataWithSaltRounds, storeToken } from "../util/security";
+import { getToken, hashDataWithSaltRounds, storeToken } from "../util/security";
 import { Link, useNavigate } from "react-router-dom";
 
 interface FormState {
@@ -11,10 +11,11 @@ interface FormState {
 }
 
 function LogIn(props: any) {
-  const { setUser } = props;
+  const { setUserId, setUser, user, userId } = props;
   const [formState, setFormState] = useState<FormState>({});
   const [logInMessage, setLogInMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(evt: any) {
@@ -27,7 +28,7 @@ function LogIn(props: any) {
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
-    setLoading(true);
+    // setLoading(true);
 
     try {
       const formData = { ...formState };
@@ -52,19 +53,51 @@ function LogIn(props: any) {
           setLogInMessage(token.error);
         } else {
           // store token in localStorage
+          console.log("token: ", token);
+          console.log("token data: ", token.data);
           storeToken(token.data);
         }
-        // navigate to home
         setUser(getUser());
-        navigate("/");
-      }
 
-      setLoading(false);
+        // navigate to home
+        navigate("/");
+
+        console.log("user: ", user);
+        console.log("userId: ", userId);
+      }
+      // const token = getToken();
+      // if (token) {
+      //   const payload = JSON.parse(atob(token.split(".")[1])).payload;
+      //   if (payload && payload._id) {
+      //     console.log("payload, ", payload);
+      //     setUserId(payload._id);
+      //   }
+      // }
+
+      // navigate to home
+      // if (user) {
+      //   navigate("/");
+      //   // setLoading(false);
+      // }
+      // setIsLoggedIn(true);
+
+      // console.log("user: ", user);
+      // console.log("userId: ", userId);
     } catch (e) {
       console.error("Log in failed: ", e);
       setLoading(false);
     }
   }
+
+  // useEffect(() => {
+  //   navigate("/");
+  // }, [isLoggedIn]);
+
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/");
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <Container className=" flex justify-center items-center h-screen ">

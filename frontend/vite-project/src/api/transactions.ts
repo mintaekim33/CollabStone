@@ -1,5 +1,5 @@
-const BASE_URL = "https://dollaradar-webservice.onrender.com/transactions";
-// const BASE_URL = "http://localhost:3000/transactions";
+// const BASE_URL = "https://dollaradar-webservice.onrender.com/transactions";
+const BASE_URL = "http://localhost:3000/transactions";
 
 export async function createTransaction(transactionData: any) {
     const createURL = BASE_URL + '/create';

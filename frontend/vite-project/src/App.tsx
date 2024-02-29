@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { useEffect, useState, createContext } from "react";
 import { fetchTransactionsData } from "./service/transactions";
@@ -28,14 +28,21 @@ function App() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [user, setUser] = useState(getUser());
   const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
 
   // retrieve user id when logged in
   useEffect(() => {
+    // console.log("USER, USERID before: ", user, userId);
     const token = getToken();
+    // console.log("GOT TOKEN: ", token);
     if (token) {
       const payload = JSON.parse(atob(token.split(".")[1])).payload;
+      // console.log("GOT PAYLOAD: ", payload);
       if (payload && payload._id) {
         setUserId(payload._id);
+        // console.log("GOT PAYLOADID: ", payload._id);
+        // console.log("USER, USERID after: ", user, userId);
+        // navigate("/");
       }
     }
   }, [user]);
@@ -79,7 +86,17 @@ function App() {
               }
             />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<LogIn setUser={setUser} />} />
+            <Route
+              path="/login"
+              element={
+                <LogIn
+                  setUser={setUser}
+                  user={user}
+                  userId={userId}
+                  setUserId={setUserId}
+                />
+              }
+            />
           </Routes>
         </>
       ) : (

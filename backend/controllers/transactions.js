@@ -21,12 +21,14 @@ async function createTransaction(req, res) {
 async function getTransactions(req, res) {
   try {
     const data = await modelTransactions.getTransactions(req.user._id);
+    // console.log("get transactions: ", data);
     // filter transaction items by user id
     // const filtered = data.filter((x) => {
     //   return x.userId.toString() === req.user._id;
     // });
 
     res.json(data);
+    // res.json(filtered);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }

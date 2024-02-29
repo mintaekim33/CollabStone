@@ -1,5 +1,5 @@
-const BASE_URL = "https://dollaradar-webservice.onrender.com/users";
-// const BASE_URL = "http://localhost:3000/users";
+// const BASE_URL = "https://dollaradar-webservice.onrender.com/users";
+const BASE_URL = "http://localhost:3000/users";
 
 export async function signUp(userData: any) {
     const createURL = BASE_URL + "/register";
