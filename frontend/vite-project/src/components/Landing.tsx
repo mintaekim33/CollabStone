@@ -43,7 +43,7 @@ function Landing() {
   return (
     <>
       {/* Hero Section */}
-      <div className="bg-image text-white py-20">
+      <div className="bg-image text-stone-800 py-20">
         <Container className="text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Take Control of Your Finances
@@ -54,7 +54,7 @@ function Landing() {
           </p>
           <Link
             to="/signup"
-            className="bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 hover:text-white transition duration-300"
+            className="bg-slate-300 text-stone-800 no-underline font-semibold py-3 px-6 rounded-lg hover:bg-blue-300  transition duration-300"
           >
             Get Started
           </Link>
