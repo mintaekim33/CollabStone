@@ -19,9 +19,9 @@ Dashboard
 ![image](https://github.com/mintaekim33/dollaradar/assets/142648992/40f05297-977d-42fb-a6a3-b657ca7f4aa8)
 
 # Technologies Used
-Frontend: React, React Bootstrap, Tailwind CSS, Recharts
-Backend: Node.js, Express, MongoDB, CryptoJS
-Project Planning: Trello, Figma, draw.io
+Frontend: React, React Bootstrap, Tailwind CSS, Recharts  
+Backend: Node.js, Express, MongoDB, CryptoJS  
+Project Planning: Trello, Figma, draw.io  
 
 # Getting Started
 Deployment Link : https://dollaradar.onrender.com/  
