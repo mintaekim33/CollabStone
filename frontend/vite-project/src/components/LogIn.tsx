@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { getLoginDetails, getUser, loginUser } from "../service/users";
@@ -14,6 +14,7 @@ function LogIn(props: any) {
   const { setUser } = props;
   const [formState, setFormState] = useState<FormState>({});
   const [logInMessage, setLogInMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(evt: any) {
@@ -25,9 +26,10 @@ function LogIn(props: any) {
   }
 
   async function handleSubmit(evt: any) {
-    try {
-      evt.preventDefault();
+    evt.preventDefault();
+    setLoading(true);
 
+    try {
       const formData = { ...formState };
       const loginDetails = await getLoginDetails(formData.email); // retrieve name, salt, iterations
       // check if the form is filled and there is no login details retrieved
@@ -57,9 +59,10 @@ function LogIn(props: any) {
         navigate("/");
       }
 
-      // // retrieve user id from token
+      setLoading(false);
     } catch (e) {
-      console.error(e);
+      console.error("Log in failed: ", e);
+      setLoading(false);
     }
   }
 
@@ -98,13 +101,21 @@ function LogIn(props: any) {
           />
         </Form.Group>
 
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Sign In
-        </Button>
+        {loading ? (
+          <div className="flex justify-center ">
+            <Spinner animation="border" role="status" variant="primary">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </div>
+        ) : (
+          <Button
+            variant="primary"
+            type="submit"
+            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          >
+            Sign In
+          </Button>
+        )}
 
         <div className="flex justify-center mt-8">
           <div className=" flex flex-col justify-center text-center">
