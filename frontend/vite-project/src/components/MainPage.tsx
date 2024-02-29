@@ -129,13 +129,13 @@ function MainPage(props: any) {
                 }}
               />
               <button
-                className=" cursor-pointer block border border-gray-500 rounded-md px-4 py-2"
+                className="focus:outline-none cursor-pointer block border border-gray-500 rounded-md px-4 py-2"
                 onClick={toggleSortOrder}
               >
                 {sortOrder === "asc" ? "Sort by latest" : "Sort by oldest"}
               </button>
               <select
-                className="  block border border-gray-300 rounded-md px-4 py-2"
+                className="focus:outline-none focus:shadow-outline border border-gray-300 rounded-md px-4 py-2"
                 onChange={handleMonthChange}
                 value={selectedMonth !== null ? selectedMonth.toString() : ""}
               >

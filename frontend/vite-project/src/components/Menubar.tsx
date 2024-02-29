@@ -28,21 +28,21 @@ function Menubar(props: any) {
         <Navbar.Collapse className="justify-content-end">
           {user ? (
             <>
-              <Link className="mr-8 no-underline" to="/">
+              <Link className="mr-8 no-underline font-bold" to="/">
                 <Navbar.Text className="text-white ">Transactions</Navbar.Text>
               </Link>
-              <Link className="mr-8 no-underline" to="/dashboard">
+              <Link className="mr-8 no-underline font-bold" to="/dashboard">
                 <Navbar.Text className="text-white ">Dashboard</Navbar.Text>
               </Link>
-              <Navbar.Text className="mr-4 text-white">
+              <Navbar.Text className="mr-4 text-white font-bold">
                 Signed in as: <span className="font-semibold">{user}</span>
               </Navbar.Text>
-              <Button
-                className="text-blue-500 hover:text-blue-700"
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 onClick={handleLogOut}
               >
                 Log Out
-              </Button>
+              </button>
             </>
           ) : (
             <>
