@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { getLoginDetails, getUser, loginUser } from "../service/users";
-import { hashDataWithSaltRounds, storeToken } from "../util/security";
+import { getToken, hashDataWithSaltRounds, storeToken } from "../util/security";
 import { Link, useNavigate } from "react-router-dom";
 
 interface FormState {
@@ -11,7 +11,8 @@ interface FormState {
 }
 
 function LogIn(props: any) {
-  const { setUser } = props;
+  const { setUserId, setUser, user, userId } = props;
+
   const [formState, setFormState] = useState<FormState>({});
   const [logInMessage, setLogInMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,20 +47,20 @@ function LogIn(props: any) {
         );
         formData.password = hashedPassword;
 
-        // actually log in
+        // log in
         const token = await loginUser(formData);
         if (token.success === false) {
           setLogInMessage(token.error);
         } else {
           // store token in localStorage
           storeToken(token.data);
-        }
-        // navigate to home
-        setUser(getUser());
-        navigate("/");
-      }
+          setUser(getUser());
+          // navigate to home
+          navigate("/");
 
-      setLoading(false);
+          setLoading(false);
+        }
+      }
     } catch (e) {
       console.error("Log in failed: ", e);
       setLoading(false);

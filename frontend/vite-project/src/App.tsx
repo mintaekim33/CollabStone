@@ -79,7 +79,17 @@ function App() {
               }
             />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<LogIn setUser={setUser} />} />
+            <Route
+              path="/login"
+              element={
+                <LogIn
+                  setUser={setUser}
+                  user={user}
+                  userId={userId}
+                  setUserId={setUserId}
+                />
+              }
+            />
           </Routes>
         </>
       ) : (

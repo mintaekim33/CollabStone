@@ -27,6 +27,7 @@ async function getTransactions(req, res) {
     // });
 
     res.json(data);
+    // res.json(filtered);
   } catch (err) {
     res.status(500).json({ errorMsg: err.message });
   }

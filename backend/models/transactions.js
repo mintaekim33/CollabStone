@@ -12,8 +12,9 @@ function createTransaction(param) {
   return daoTransactions.create(param);
 }
 
-function getTransactions(id) {
-  return daoTransactions.find({ userId: id });
+async function getTransactions(id) {
+  const result = await daoTransactions.find({ userId: id });
+  return result;
 }
 
 function getTransaction(id) {
