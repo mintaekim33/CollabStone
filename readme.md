@@ -1,6 +1,14 @@
 # dollaradar
 dollaradar is a web application designed to help users manage their finances effectively. With dollaradar, users can track their expenses, analyze spending patterns, and gain insights into their financial habits. The app provides visualizations such as pie charts and bar graphs to make financial data easy to understand.
 
+# Motivation
+The main motivation stems from the need to improve my financial literacy. I have always wanted to keep track of my expenses because I wasn't saving enough.
+
+# User Stories 
+- AAU, I want to Create, Read, Update, Delete transaction records.
+- AAU, I want to visualise my spending habits and find out what I'm spending the most on.
+- AAu, I want to sign up so that I can save my records and refer to them later. 
+
 # Screenshots
 Landing Page
 <img width="1421" alt="Screenshot 2024-02-29 at 5 46 30 PM" src="https://github.com/mintaekim33/dollaradar/assets/142648992/c17bf83a-b402-4a80-a668-f6ca70227b64">
@@ -38,14 +46,17 @@ Sample Account
 Email: john@email.com  
 Password: john
 
-# Challeges
-Managing states  
-Authentication
+# Challenges & Takeaways
+1. Managing growing number of states
+2. Comment your code to help yourself
+3. Keep a debugging notes so you can refer back when you face the same issue (and you will)
+4. Sorting and filtering data should be done on the backend
 
 # Next Steps
 - Allow users to add categories
 - Pagination of transaction records
 
 # Resources
+[Unsplash](https://unsplash.com/)
 [Font Awesome](https://fontawesome.com/)  
 [Icons8](https://icons8.com/icons)
