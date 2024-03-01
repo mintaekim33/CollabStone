@@ -14,7 +14,6 @@ function createTransaction(param) {
 
 async function getTransactions(id) {
   const result = await daoTransactions.find({ userId: id });
-  console.log("Result:", result); // Log the result to see what it is
   return result;
 }
 

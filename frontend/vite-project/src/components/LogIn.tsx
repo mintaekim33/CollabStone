@@ -12,10 +12,10 @@ interface FormState {
 
 function LogIn(props: any) {
   const { setUserId, setUser, user, userId } = props;
+
   const [formState, setFormState] = useState<FormState>({});
   const [logInMessage, setLogInMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(evt: any) {
@@ -28,7 +28,7 @@ function LogIn(props: any) {
 
   async function handleSubmit(evt: any) {
     evt.preventDefault();
-    // setLoading(true);
+    setLoading(true);
 
     try {
       const formData = { ...formState };
@@ -47,57 +47,25 @@ function LogIn(props: any) {
         );
         formData.password = hashedPassword;
 
-        // actually log in
+        // log in
         const token = await loginUser(formData);
         if (token.success === false) {
           setLogInMessage(token.error);
         } else {
           // store token in localStorage
-          console.log("token: ", token);
-          console.log("token data: ", token.data);
           storeToken(token.data);
+          setUser(getUser());
+          // navigate to home
+          navigate("/");
+
+          setLoading(false);
         }
-        setUser(getUser());
-
-        // navigate to home
-        navigate("/");
-
-        console.log("user: ", user);
-        console.log("userId: ", userId);
       }
-      // const token = getToken();
-      // if (token) {
-      //   const payload = JSON.parse(atob(token.split(".")[1])).payload;
-      //   if (payload && payload._id) {
-      //     console.log("payload, ", payload);
-      //     setUserId(payload._id);
-      //   }
-      // }
-
-      // navigate to home
-      // if (user) {
-      //   navigate("/");
-      //   // setLoading(false);
-      // }
-      // setIsLoggedIn(true);
-
-      // console.log("user: ", user);
-      // console.log("userId: ", userId);
     } catch (e) {
       console.error("Log in failed: ", e);
       setLoading(false);
     }
   }
-
-  // useEffect(() => {
-  //   navigate("/");
-  // }, [isLoggedIn]);
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/");
-  //   }
-  // }, [isLoggedIn, navigate]);
 
   return (
     <Container className=" flex justify-center items-center h-screen ">
