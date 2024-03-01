@@ -7,7 +7,15 @@ The main motivation stems from the need to improve my financial literacy. I have
 # User Stories 
 - AAU, I want to Create, Read, Update, Delete transaction records.
 - AAU, I want to visualise my spending habits and find out what I'm spending the most on.
-- AAu, I want to sign up so that I can save my records and refer to them later. 
+- AAu, I want to sign up so that I can save my records and refer to them later.
+
+# Getting Started
+[Deployment Link](https://dollaradar.onrender.com/)  
+[Trello](https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar)  
+
+Sample Account  
+Email: john@email.com  
+Password: john
 
 # Screenshots
 Landing Page
@@ -37,14 +45,6 @@ Log In
 Frontend: React, React Bootstrap, Tailwind CSS, Recharts  
 Backend: Node.js, Express, MongoDB, CryptoJS  
 Project Planning: Trello, Figma, draw.io  
-
-# Getting Started
-[Deployment Link](https://dollaradar.onrender.com/)  
-[Trello](https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar)  
-
-Sample Account  
-Email: john@email.com  
-Password: john
 
 # Challenges & Takeaways
 1. Managing growing number of states
