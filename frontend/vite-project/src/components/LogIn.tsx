@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Row, Spinner } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { getLoginDetails, getUser, loginUser } from "../service/users";
-import { getToken, hashDataWithSaltRounds, storeToken } from "../util/security";
+import { hashDataWithSaltRounds, storeToken } from "../util/security";
 import { Link, useNavigate } from "react-router-dom";
 
 interface FormState {
@@ -11,7 +11,7 @@ interface FormState {
 }
 
 function LogIn(props: any) {
-  const { setUserId, setUser, user, userId } = props;
+  const { setUser } = props;
 
   const [formState, setFormState] = useState<FormState>({});
   const [logInMessage, setLogInMessage] = useState("");
