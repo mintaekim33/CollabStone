@@ -6,7 +6,7 @@ The main motivation stems from the need to improve my financial literacy. I have
 
 # User Stories 
 - AAU, I want to Create, Read, Update, Delete transaction records.
-- AAU, I want to visualise my spending habits and find out what I'm spending the most on.
+- AAU, I want to visualize my spending habits and find out what I'm spending the most on.
 - AAu, I want to sign up so that I can save my records and refer to them later.
 
 # Getting Started
