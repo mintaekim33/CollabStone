@@ -102,15 +102,13 @@ function Landing() {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
           Visualize Your Money Flow
         </h2>
-        {/* <div className="flex justify-center space-x-10"> CHANGED */}
-        <div className="flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-10">
-          {/* <Card style={{ width: 500 }}>  CHANGED */}
-          <Card className="w-full md:w-1/2">
+        <div className="flex flex-col lg:flex-row justify-center space-y-10 lg:space-y-0 lg:space-x-10">
+          <Card style={{ width: 500 }}>
             <Card.Body>
               <h3 className="text-xl font-semibold mb-4 text-center">
                 Spending Distribution
               </h3>
-              <PieChart width={500} height={300} className="mx-auto">
+              <PieChart width={500} height={300}>
                 <Pie
                   dataKey="amount"
                   data={data}
@@ -129,17 +127,13 @@ function Landing() {
               </PieChart>
             </Card.Body>
           </Card>
+
           <Card style={{ width: 500 }}>
             <Card.Body>
               <h3 className="text-xl font-semibold mb-4 text-center">
                 Monthly Summary
               </h3>
-              <BarChart
-                width={500}
-                height={300}
-                data={monthlyData}
-                className="mx-auto"
-              >
+              <BarChart width={400} height={300} data={monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="monthName" />
                 <YAxis />

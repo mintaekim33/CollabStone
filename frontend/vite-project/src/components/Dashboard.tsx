@@ -138,7 +138,7 @@ function Dashboard(props: any) {
         </Card>
       </div>
 
-      <div className="flex justify-center pt-8">
+      <div className="flex flex-col lg:flex-row justify-center space-y-10 lg:space-y-0 lg:space-x-10 pt-8">
         <Card className="" style={{ width: 500 }}>
           <h3 className="flex justify-center">Expense by Category</h3>
           <PieChart width={500} height={500}>
