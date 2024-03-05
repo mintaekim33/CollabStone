@@ -12,6 +12,7 @@ import {
   faUtensils,
   faWifi,
 } from "@fortawesome/free-solid-svg-icons";
+import { getIcons } from "../util/icons";
 
 function TransactionItem(props: any) {
   const { transaction } = props;
@@ -26,13 +27,14 @@ function TransactionItem(props: any) {
 
   return (
     <div className="">
+      -
       <Table striped bordered hover className="m-0">
         <tbody>
           <tr>
             <td className="w-32 text-center">{formattedDate}</td>
             <td className="w-44 text-center">
               <span className="mr-1">
-                {transaction.category === "Salary" && (
+                {/* {transaction.category === "Salary" && (
                   <FontAwesomeIcon
                     icon={faCreditCard}
                     style={{ color: "#9a0e23" }}
@@ -73,7 +75,8 @@ function TransactionItem(props: any) {
                 )}
                 {transaction.category === "Utilities" && (
                   <FontAwesomeIcon icon={faWifi} style={{ color: "#60a9a8" }} />
-                )}
+                )} */}
+                {getIcons(transaction.category)}
               </span>
               {transaction.category}
             </td>
