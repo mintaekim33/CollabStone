@@ -27,57 +27,12 @@ function TransactionItem(props: any) {
 
   return (
     <div className="">
-      -
       <Table striped bordered hover className="m-0">
         <tbody>
           <tr>
             <td className="w-32 text-center">{formattedDate}</td>
             <td className="w-44 text-center">
-              <span className="mr-1">
-                {/* {transaction.category === "Salary" && (
-                  <FontAwesomeIcon
-                    icon={faCreditCard}
-                    style={{ color: "#9a0e23" }}
-                  />
-                )}
-                {transaction.category === "Investment" && (
-                  <FontAwesomeIcon
-                    icon={faSackDollar}
-                    style={{ color: "#307e66" }}
-                  />
-                )}
-                {transaction.category === "Part-Time" && (
-                  <FontAwesomeIcon
-                    icon={faClock}
-                    style={{ color: "#6d84ab" }}
-                  />
-                )}
-                {transaction.category === "Food" && (
-                  <FontAwesomeIcon
-                    icon={faUtensils}
-                    style={{ color: "#acaaaa" }}
-                  />
-                )}
-                {transaction.category === "Entertainment" && (
-                  <FontAwesomeIcon
-                    icon={faTicket}
-                    style={{ color: "#FFD43B" }}
-                  />
-                )}
-                {transaction.category === "Shopping" && (
-                  <FontAwesomeIcon
-                    icon={faBagShopping}
-                    style={{ color: "d86518" }}
-                  />
-                )}
-                {transaction.category === "Transport" && (
-                  <FontAwesomeIcon icon={faBus} style={{ color: "#134aaa" }} />
-                )}
-                {transaction.category === "Utilities" && (
-                  <FontAwesomeIcon icon={faWifi} style={{ color: "#60a9a8" }} />
-                )} */}
-                {getIcons(transaction.category)}
-              </span>
+              <span className="mr-1">{getIcons(transaction.category)}</span>
               {transaction.category}
             </td>
             <td className="w-20 text-center">
