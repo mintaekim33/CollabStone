@@ -1,17 +1,7 @@
 import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBagShopping,
-  faBus,
-  faClock,
-  faCreditCard,
-  faPencil,
-  faSackDollar,
-  faTicket,
-  faUtensils,
-  faWifi,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { getIcons } from "../util/icons";
 
 function TransactionItem(props: any) {
