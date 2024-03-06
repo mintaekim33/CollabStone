@@ -1,7 +1,18 @@
 import TransactionItem from "./TransactionItem";
+import Pagination from "react-bootstrap/Pagination";
 
 function TransactionTable(props: any) {
   const { selectedMonth, filterTransactionsByMonth, transactions } = props;
+
+  let active = 2;
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active}>
+        {number}
+      </Pagination.Item>
+    );
+  }
 
   return (
     <div className=" w-1/2 mb-20 ">
@@ -26,6 +37,7 @@ function TransactionTable(props: any) {
                   transaction={transaction}
                 />
               ))}
+          <Pagination>{items}</Pagination>
         </>
       )}
     </div>
