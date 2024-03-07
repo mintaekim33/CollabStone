@@ -4,7 +4,7 @@ import Pagination from "react-bootstrap/Pagination";
 
 function TransactionTable(props: any) {
   const { selectedMonth, filterTransactionsByMonth, transactions } = props;
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate the index range for the current page
@@ -36,6 +36,7 @@ function TransactionTable(props: any) {
 
   return (
     <div className=" w-1/2 mb-20 ">
+      <Pagination className="">{items}</Pagination>
       {transactions?.length === 0 ? (
         <div className="mt-20 flex justify-center">
           <p className="text-gray-500">Start adding your transactions!</p>
@@ -59,7 +60,6 @@ function TransactionTable(props: any) {
                     transaction={transaction}
                   />
                 ))}
-          <Pagination>{items}</Pagination>
         </>
       )}
     </div>
