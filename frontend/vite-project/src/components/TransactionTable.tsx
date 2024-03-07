@@ -1,14 +1,34 @@
+import { useState } from "react";
 import TransactionItem from "./TransactionItem";
 import Pagination from "react-bootstrap/Pagination";
 
 function TransactionTable(props: any) {
   const { selectedMonth, filterTransactionsByMonth, transactions } = props;
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
 
-  let active = 2;
+  // Calculate the index range for the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Handle page change
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Generate pagination items
   let items = [];
-  for (let number = 1; number <= 5; number++) {
+  for (
+    let number = 1;
+    number <= Math.ceil(transactions?.length / itemsPerPage);
+    number++
+  ) {
     items.push(
-      <Pagination.Item key={number} active={number === active}>
+      <Pagination.Item
+        key={number}
+        active={number === currentPage}
+        onClick={() => handlePageChange(number)}
+      >
         {number}
       </Pagination.Item>
     );
@@ -16,6 +36,7 @@ function TransactionTable(props: any) {
 
   return (
     <div className=" w-1/2 mb-20 ">
+      <Pagination className="">{items}</Pagination>
       {transactions?.length === 0 ? (
         <div className="mt-20 flex justify-center">
           <p className="text-gray-500">Start adding your transactions!</p>
@@ -23,21 +44,22 @@ function TransactionTable(props: any) {
       ) : (
         <>
           {selectedMonth !== null
-            ? filterTransactionsByMonth(transactions, selectedMonth).map(
-                (transaction: { _id: any }) => (
+            ? filterTransactionsByMonth(transactions, selectedMonth)
+                .slice(startIndex, endIndex)
+                .map((transaction: { _id: any }) => (
                   <TransactionItem
                     key={transaction._id}
                     transaction={transaction}
                   />
-                )
-              )
-            : transactions?.map((transaction: { _id: any }) => (
-                <TransactionItem
-                  key={transaction._id}
-                  transaction={transaction}
-                />
-              ))}
-          <Pagination>{items}</Pagination>
+                ))
+            : transactions
+                ?.slice(startIndex, endIndex)
+                .map((transaction: { _id: any }) => (
+                  <TransactionItem
+                    key={transaction._id}
+                    transaction={transaction}
+                  />
+                ))}
         </>
       )}
     </div>
