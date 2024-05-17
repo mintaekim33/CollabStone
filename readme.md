@@ -1,4 +1,6 @@
 # dollaradar
+Demo: [Deployment Link](https://dollaradar.onrender.com/)  
+
 dollaradar is a web application designed to help users manage their finances effectively. With dollaradar, users can track their expenses, analyze spending patterns, and gain insights into their financial habits. The app provides visualizations such as pie charts and bar graphs to make financial data easy to understand.
 
 # Motivation
@@ -10,8 +12,7 @@ The main motivation stems from the need to improve my financial literacy. I have
 - AAu, I want to sign up so that I can save my records and refer to them later.
 
 # Getting Started
-Demo: [Deployment Link](https://dollaradar.onrender.com/)  
-[Trello](https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar)  
+Planning: [Trello](https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar)  
 
 Sample Account  
 Email: john@email.com  
