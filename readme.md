@@ -10,7 +10,7 @@ The main motivation stems from the need to improve my financial literacy. I have
 - AAu, I want to sign up so that I can save my records and refer to them later.
 
 # Getting Started
-[Deployment Link](https://dollaradar.onrender.com/)  
+Demo: [Deployment Link](https://dollaradar.onrender.com/)  
 [Trello](https://trello.com/invite/b/SwSnIY0Y/ATTI28a409d5b03c2f6ad2d55f8d84d679ed1486E490/dollaradar)  
 
 Sample Account  
